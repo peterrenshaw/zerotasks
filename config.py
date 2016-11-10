@@ -14,7 +14,7 @@ import os
 
 
 #------- config -------
-DEBUG = True
+DEBUG = False
 
 IVL_MIN = 6
 IVL_MAX = 10

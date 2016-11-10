@@ -156,7 +156,6 @@ def rebuild():
         DISERR("Cannot read file content")
         return False 
 
-    print("tasks")
     # sort tasks, write task list
     # TASKS is json list in raw format
     fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
@@ -170,13 +169,11 @@ def rebuild():
     dsp_todo = display(todo, show_count=True, is_raw=False, show=False)
     fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TODO")
     if dsp_todo:
-         print("todo")
          if not IO.write(fpn, dsp_todo, is_json=False, save_bit='w'):
               DISERR("Cannot write TODO")
               return False
 
          # write TODOs to $HOME
-         print("todo 2 home")
          fpn = os.path.join(config.FP_HOME, "TODO")
          if not IO.write(fpn, dsp_todo, is_json=False, save_bit='w'):
                DISERR("Cannot write TODO to home")
@@ -186,7 +183,6 @@ def rebuild():
     dsp_done = display(done, show_count=False, is_raw=False, show=False)
     fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "DONE")
     if dsp_done:
-        print("done")
         if not IO.write(fpn, dsp_done, is_json=False, save_bit='w'):
             DISERR("Cannot write DONE")
             return False

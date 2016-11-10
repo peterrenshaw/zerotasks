@@ -62,7 +62,6 @@ def main():
             tools.DISERR("Cannot update end on task","#{}".format(options.start))
 
     if options.rebuild:
-        print("rebuild")
         if not tools.rebuild():
             tools.DISERR("Cannot rebuild tasks")
 

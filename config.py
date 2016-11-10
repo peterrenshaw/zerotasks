@@ -14,17 +14,19 @@ import os
 
 
 #------- config -------
+DEBUG = False
+
 IVL_MIN = 6
 IVL_MAX = 10
+
 DDMMYY = "%a%d%m"
 DMY = "%D%M%Y"
 DD = "%a"
+
 FN_EXT = "tsk"
 FP_HOME = "/Users/pr"
 FP_TASKS = os.path.join(FP_HOME, "work/code/tsk")
 TASKS_ARCHIVE = os.path.join(FP_TASKS, "2016")
-
-
 TASK_ATTRIBUTES = dict(name="",            # name of task
                        description="",     # task comment (optional)
                        priority=0,         # priority of task given (1-3)

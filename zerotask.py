@@ -14,9 +14,8 @@ import os
 import argparse
 
 
+import tools
 import config
-
-
 
 
 def main():
@@ -42,6 +41,32 @@ def main():
     options = parser.parse_args()
 
 
+    if options.new:
+        print("new")
+        
+        if options.comment:
+            print("comment")
+        if options.priority:
+            print("priority")
+
+    if options.start:
+        print("start")
+
+    if options.end:
+        print("end")
+
+    if options.finish:
+        print("finish")
+
+    if options.rebuild:
+        print("rebuild")
+
+    if options.display:
+        if tools.display_all():
+            tools.DISERR("Cannot display tasks")
+
+    if options.output:
+        print("output")
 
 
 # main entry point for cli

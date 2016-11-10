@@ -50,16 +50,22 @@ def main():
             print("priority")
 
     if options.start:
-        print("start")
-
+        if not tools.update_task(options.start, 'start'):
+            tools.DISERR("Cannot update start on task","#{}".format(options.start))
+ 
     if options.end:
-        print("end")
+        if not tools.update_task(options.end, 'end'):
+            tools.DISERR("Cannot update end on task","#{}".format(options.start))
 
     if options.finish:
-        print("finish")
+        if not tools.update_task(options.finish, 'completed'):
+            tools.DISERR("Cannot update end on task","#{}".format(options.start))
 
     if options.rebuild:
         print("rebuild")
+        if not tools.rebuild():
+            tools.DISERR("Cannot rebuild tasks")
+
 
     if options.display:
         if tools.display_all():

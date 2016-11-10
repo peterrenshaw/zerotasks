@@ -13,10 +13,158 @@
 import os
 import glob
 import json
+import time
+import datetime
 
 
 import tools
 import config
+
+
+#======
+# name: Filename
+# date: 2016NOV02
+# prog: pr
+# desc: build reliable filenames with/without extensions
+#       takes into account spaces
+#======
+class Filename(object):
+    def __init__(self):
+        """initialise filename object attributes"""
+        self.file_name = ""
+        self.ext = ""
+    def build(self, name, ext, is_caseupper):
+        """build a filename given the name and/not extension"""
+        if name:
+            # check spaces, reject if spaces
+            name_clean = tools.clean_str(name)
+            if name_clean:
+                # has ext?
+                if ext:
+                    self.ext = ext
+                    filename = "{}.{}".format(name_clean, self.ext)
+                else:
+                    filename = name_clean
+
+                # change case, does not preserve
+                if is_caseupper: # everything uppercase
+                    self.file_name = filename.upper()
+                else:            # everything lowercase
+                    self.file_name = filename.lower()
+
+                return True
+            else:
+                return False
+        else:
+            return False
+    def getup(self, name, ext=""):
+        """filename in uppe rcase"""
+        return self.get(name, ext, True)
+    def getlo(self, name, ext=config.FN_EXT):
+        """filename in lower case"""
+        return self.get(name, ext, False)
+    def get(self, name, ext, is_caseupper):
+        """return a filename or False"""
+        if self.build(name, ext, is_caseupper):
+            return self.file_name
+        else:
+            return False
+
+
+#------
+# name: Path
+# date: 2016SEP24
+# prog: pr
+# desc: given an epoch, calculate the filepaths 
+#------
+class Path(object):
+    def __init__(self, rel_path=""):
+        """initialise Path object"""
+        self.epoch = None
+        self.rp = rel_path
+        self.fp = ""
+    def relpath(self):
+        """find relative filepath"""
+        return self.rp
+    def filepath(self):
+        """find absolute filepath"""
+        return self.fp
+    def build(self, epoch):
+        """from supplied epoch, build file paths"""
+        self.epoch = epoch
+        if self.epoch:
+            year = self.fmt_epoch("%Y")
+            month = self.fmt_epoch("%b")
+            day = self.fmt_epoch("%d")
+            fp = os.path.join(self.rp, year, month, day)
+            self.fp = "{}".format(fp.upper())
+
+            return True
+        else:
+            return False
+    def get(self, epoch):
+        """get the filepath OR F"""
+        if self.build(epoch):
+            return self.fp
+        else:
+            return False
+    #------ tool ------
+    def fmt_epoch(self, strf):
+        """given an epoch, convert to strformat string supplied"""
+        t = datetime.datetime.fromtimestamp(self.epoch)
+        value = t.strftime(strf)
+        return value
+    #------ end tool -----
+
+
+#======
+# name: Filepath
+# date: 2016NOV02
+# prog: pr
+# desc: filepath object to create and manipulate valid paths
+#======
+class Filepath(object):
+    def __init__(self,
+                 fp_home=config.FP_HOME,
+                 base_path=config.FP_TASKS):
+        """init Filepath obj attributes"""
+        self.fp_home = fp_home
+        self.rp = ""
+        self.p  = ""
+        self.fp = ""
+        self.bp = base_path # basepath
+    def build(self, path=""):
+        """create a filepath from home and relative filepaths"""
+        if path:    # update relative path
+            self.p = path
+            tools.DISCOM("IO.Filepath.build", \
+                         "fp_home=<{}>".format(self.fp_home)) 
+            tools.DISCOM("IO.Filepath.build", \
+                         "bp=<{}>".format(self.bp)) 
+            tools.DISCOM("IO.Filepath.build", \
+                         "rp=<{}>".format(self.rp))
+            tools.DISCOM("IO.Filepath.build", \
+                         "path=<{}>".format(path))  
+            self.fp = os.path.join(self.fp_home, self.bp, self.rp, path)
+        else:           # use existing relative path
+            self.fp = os.path.join(self.fp_home, self.bp, self.rp)
+        return True
+    def get(self, path, no_test=True):
+        """build then return the filepath"""
+        if self.build(path):
+            # use this to avoid test of ^new^ file if
+            # file passed in - is this a good idea?
+            if no_test:
+                return self.fp
+            elif self.is_valid():
+                return self.fp
+            else:
+                return False
+        else: return False
+    def is_valid(self):
+        """check validity of current filepath"""
+        if os.path.isdir(self.fp): return True
+        else: return False
 
 
 #------ IO -------

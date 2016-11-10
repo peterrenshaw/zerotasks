@@ -10,6 +10,7 @@
 #======
 
 
+import os
 import json
 import time
 import glob
@@ -19,6 +20,33 @@ import datetime
 
 import IO
 import config
+
+
+#------ misc ------
+#------
+# clean_str: strips out unwanted chars, enforeces no 
+#            spaces in string by replacing with '-'
+#------
+def clean_str(name, strip_char=config.UNWANTED_CHAR, sep=config.SEP):
+    """clean string of non a-z,A-Z chars"""
+    clean = ""
+    EMPTY = ""
+    SPACE = " "
+
+    # strip characters from name
+    for ch in strip_char:
+        clean = name.replace(ch, EMPTY)
+        name = clean
+
+    # reject if empty spaces
+    space_count = len(name.replace(SPACE, EMPTY))
+    if space_count > 0:
+        # replace spaces b/w words with dash
+        name = name.replace(SPACE, sep)
+        return name
+    else:
+        return False
+#------ misc ------
 
 
 #------- datetime -------
@@ -69,6 +97,33 @@ def is_taskcount_reached(task_max=config.IVL_MIN):
     
     # result is T/F?
     return (count <= task_max)
+def update_task(number, key):
+    """start the timeclock on a task"""
+    if number:
+         tasks = []
+         fpn = IO.get_filepathname()
+         if fpn: tasks = sort_todo(IO.read_all(fpn))
+         else: DISERR("Cannot read file content")
+
+         epoch = get_epoch()
+         count = 1
+         for task in tasks:
+              if count == int(number):
+                  if key == 'completed':
+                      task[key] = True
+                  else: # start, end only
+                      task[key] = epoch
+                  fpn = IO.path(task)
+                  print(task, key, epoch, fpn)
+                  if not IO.write(fpn, task):
+                      DISERR("Cannot write task")
+                  break
+              count += 1
+
+         return True
+    else:
+         DISERR("Cannot read file content")
+         return False
 #------ task ------
 
 
@@ -91,6 +146,53 @@ def sort_done(data):
 def sort_todo(data):
     """convenience for sort: sort by completed, todo"""
     return sort(data, key="completed",value=False)
+def rebuild():
+    """build lists from archive"""
+    # tasks from archive
+    fpn = IO.get_filepathname()
+    if fpn: 
+        tasks = IO.read_all(fpn)
+    else:
+        DISERR("Cannot read file content")
+        return False 
+
+    print("tasks")
+    # sort tasks, write task list
+    # TASKS is json list in raw format
+    fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
+    if not IO.write(fpn, tasks):
+        DISERR("Cannot write TASKS")
+        return False
+
+
+    # write todo lists
+    todo = sort_todo(tasks)
+    dsp_todo = display(todo, show_count=True, is_raw=False, show=False)
+    fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TODO")
+    if dsp_todo:
+         print("todo")
+         if not IO.write(fpn, dsp_todo, is_json=False, save_bit='w'):
+              DISERR("Cannot write TODO")
+              return False
+
+         # write TODOs to $HOME
+         print("todo 2 home")
+         fpn = os.path.join(config.FP_HOME, "TODO")
+         if not IO.write(fpn, dsp_todo, is_json=False, save_bit='w'):
+               DISERR("Cannot write TODO to home")
+               return False
+
+    done = sort_done(tasks)
+    dsp_done = display(done, show_count=False, is_raw=False, show=False)
+    fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "DONE")
+    if dsp_done:
+        print("done")
+        if not IO.write(fpn, dsp_done, is_json=False, save_bit='w'):
+            DISERR("Cannot write DONE")
+            return False
+
+    return True
+
 #------ sort -------
 
 
@@ -139,7 +241,7 @@ def display_all():
     """display the tasks"""
     fpn = IO.get_filepathname()
     if fpn: tasks = IO.read_all(fpn)
-    else: DISERR("Cannot read file content","")
+    else: DISERR("Cannot read file content")
         
     todo = []
     for task in tasks:

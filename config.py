@@ -14,7 +14,7 @@ import os
 
 
 #------- config -------
-DEBUG = False
+DEBUG = True
 
 IVL_MIN = 6
 IVL_MAX = 10
@@ -25,7 +25,7 @@ DD = "%a"
 
 FN_EXT = "tsk"
 FP_HOME = "/Users/pr"
-FP_TASKS = os.path.join(FP_HOME, "work/code/tsk")
+FP_TASKS = os.path.join(FP_HOME, "work/code/zt")
 TASKS_ARCHIVE = os.path.join(FP_TASKS, "2016")
 TASK_ATTRIBUTES = dict(name="",            # name of task
                        description="",     # task comment (optional)
@@ -34,6 +34,12 @@ TASK_ATTRIBUTES = dict(name="",            # name of task
                        created=0.0,        # when task initiated in epoch UTC
                        start=0.0,          # when task started in epoch UTC
                        end=0.0)            # when task completed in epoch UTC
+
+UNWANTED_CHAR = ['~','!','@','#','$','%','^','&','*','(',')','_','+','=',
+                 '`',"'",'"','?','>','<',',','.','-']
+SEP = "-"
+DDMMYY = "%a%d%m" 
+
 #------ config ------
 
 

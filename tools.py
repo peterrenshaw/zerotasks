@@ -103,11 +103,9 @@ def new(name,
             fp = IO.get_path(task)
             fpn = os.path.join(config.FP_HOME, config.FP_TASKS, fp)
             if IO.write(fpn, task):
-                fpn = IO.get_filepathname()
-                if fpn: tasks = IO.read_all(fpn)
-                else: DISERR("Cannot read file content")
-                rebuild()
-                display_all()
+                #fpn = IO.get_filepathname()
+                #if fpn: tasks = IO.read_all(fpn)
+                #else: DISERR("Cannot read file content")
 
                 return True
             else:
@@ -216,7 +214,6 @@ def rebuild():
         DISERR("Cannot write TASKS")
         return False
 
-
     # write todo lists
     todo = sort_todo(tasks)
     dsp_todo = display(todo, show_count=True, is_raw=False, show=False)
@@ -232,6 +229,7 @@ def rebuild():
                DISERR("Cannot write TODO to home")
                return False
 
+    # write done list
     done = sort_done(tasks)
     dsp_done = display(done, show_count=False, is_raw=False, show=False)
     fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "DONE")

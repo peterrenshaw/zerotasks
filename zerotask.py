@@ -21,23 +21,22 @@ import config
 def main():
     """main entry point for cli"""
     parser = argparse.ArgumentParser(description="")
+    
     # ------ new task -------
     parser.add_argument("-n","--new",help="create a new task")
     parser.add_argument("-c","--comment",help="comment for new task")
     parser.add_argument("-p","--priority",help="priority for new task")
     parser.add_argument("-f","--finish",help="task finished")
+    # ------ verb task -------
     parser.add_argument("-s","--start",help="task started")
     parser.add_argument("-e","--end",help="task ended")
-    # ------ IO -------
-    parser.add_argument("-o","--output",action="store_true",
-                        help="save a file")
-    # ------ verb task -------
     parser.add_argument("-d","--display", action="store_true",
                         help="display file content")
     parser.add_argument("-r","--rebuild", action="store_true",
                         help="rebuild the TASK, DONE lists")
     parser.add_argument("-i", "--increase", action="store_true",
                         help="increase maximum numnber of tasks")
+
     options = parser.parse_args()
 
 
@@ -61,13 +60,9 @@ def main():
         if not tools.rebuild():
             tools.DISERR("Cannot rebuild tasks")
 
-
     if options.display:
         if tools.display_all():
             tools.DISERR("Cannot display tasks")
-
-    if options.output:
-        print("output")
 
 
 # main entry point for cli

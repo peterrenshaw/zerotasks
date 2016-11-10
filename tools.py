@@ -66,6 +66,59 @@ def fmt_short_date(epoch, cust_strf=config.DDMMYY):
 
 
 #------- task -------
+def new(name, 
+        comment="",
+        priority=1,
+        limit=False):
+    """create a new task, save"""
+    # name, comment, priority
+    name = name
+    if comment: task_comment = comment
+    if priority: task_priority = priority
+        
+    # task limit
+    if limit:
+        task_limit = config.IVL_MAX
+    else:
+        task_limit = config.IVL_MIN
+
+    # rebuild TASKS
+    fpn = IO.get_filepathname()
+    if fpn:
+        tasks = IO.read_all(fpn)
+    else:
+        DISERR("Cannot readbuild filepathe name")
+        return False
+
+    # sort tasks, write task lists
+    # TASKS is json list in raw format
+    fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
+    if not IO.write(fpn, tasks):
+        DISSERR("Cannot write TASKS")
+
+    # throttle number of tasks allowed
+    if is_taskcount_reached(task_limit):
+        task = new_task(name, comment, priority)
+        if task:
+            fp = IO.get_path(task)
+            fpn = os.path.join(config.FP_HOME, config.FP_TASKS, fp)
+            if IO.write(fpn, task):
+                fpn = IO.get_filepathname()
+                if fpn: tasks = IO.read_all(fpn)
+                else: DISERR("Cannot read file content")
+                rebuild()
+                display_all()
+
+                return True
+            else:
+                DISERR("Cannot write new task","task {}\nfpn <{}>".format(task, fpn))
+                return False
+        else:
+            DISERR("Task not created","task: {}\n fpn <{}>".format(task, task))
+            return False
+    else:
+        DISWARN("Cannot add new task. Finish a task first.")
+        return False
 def new_task(name, 
              description="", 
              priority=1,
@@ -113,7 +166,7 @@ def update_task(number, key):
                       task[key] = True
                   else: # start, end only
                       task[key] = epoch
-                  fpn = IO.path(task)
+                  fpn = IO.get_path(task)
                   print(task, key, epoch, fpn)
                   if not IO.write(fpn, task):
                       DISERR("Cannot write task")

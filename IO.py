@@ -107,7 +107,7 @@ class Path(object):
         if self.build(epoch):
             return self.fp
         else:
-            return False
+            return ""
     #------ tool ------
     def fmt_epoch(self, strf):
         """given an epoch, convert to strformat string supplied"""
@@ -168,16 +168,21 @@ class Filepath(object):
 
 
 #------ IO -------
-def path(task, basepath=config.FP_TASKS):
+def get_path(task, basepath=config.FP_TASKS):
     """build filepath from task data"""
     if 'name' in task: 
         name = task['name']
         epoch = task['created']
 
-        filename = Filename().getlo(name)
-        dir_ymd  = Path().get(epoch)
-        filepath = Filepath().get(name)
-        fpn = os.path.join(basepath, dir_ymd, filename)
+        fp = Filepath().get(basepath)
+        ymd  = Path().get(epoch)
+        fn = Filename().getlo(name)
+        fpn = os.path.join(fp, ymd, fn)
+
+        tools.DISERR("fn = {}".format(fn))
+        tools.DISERR("ymd = {}".format(ymd))
+        tools.DISERR("fp = {}".format(fp))
+        tools.DISERR("fpn = {}".format(fpn))
 
         return fpn
     else:
@@ -275,6 +280,7 @@ def get_filepathname(filepath=config.TASKS_ARCHIVE, ext=config.FN_EXT):
             for tfn in glob.glob(fpn):
                  if os.path.isfile(tfn):
                      paths.append(tfn)
+
     return paths
 #------ IO -------
 

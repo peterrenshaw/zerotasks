@@ -42,13 +42,9 @@ def main():
 
 
     if options.new:
-        print("new")
-        
-        if options.comment:
-            print("comment")
-        if options.priority:
-            print("priority")
-
+        if not tools.new(options.new, options.comment, options.priority):
+            tools.DISERR("Cannot add new task")
+       
     if options.start:
         if not tools.update_task(options.start, 'start'):
             tools.DISERR("Cannot update start on task","#{}".format(options.start))

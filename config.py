@@ -36,7 +36,7 @@ TASK_ATTRIBUTES = dict(name="",            # name of task
                        end=0.0)            # when task completed in epoch UTC
 
 UNWANTED_CHAR = ['~','!','@','#','$','%','^','&','*','(',')','_','+','=',
-                 '`',"'",'"','?','>','<',',','.','-']
+                 '`',"'",'"','?','>','<',',','.','-','/','\\','|']
 SEP = "-"
 DDMMYY = "%a%d%m" 
 

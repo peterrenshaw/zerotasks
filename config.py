@@ -6,7 +6,7 @@
 # name: config.py
 # date: 2016NOV10
 # prog: pr
-# desc: zero task
+# desc: Zero Tasks: read docs/ABOUT.txt
 #======
 
 

@@ -244,10 +244,10 @@ def rebuild():
               return False
 
          # TODOs written to $HOME
-         #fpn = os.path.join(config.FP_HOME, "TODO")
-         #if not IO.write(fpn, rend_todo, is_json=False, save_bit='w'):
-         #      DISERR("Cannot write TODO to home")
-         #      return False
+         fpn = os.path.join(config.FP_HOME, "TODO")
+         if not IO.write(fpn, rend_todo, is_json=False, save_bit='w'):
+               DISERR("Cannot write TODO to home")
+               return False
 
     # DONE write
     #done = sort_done(tasks)
@@ -287,7 +287,7 @@ def display(data, show_count=False, is_raw=False, show=True):
             dt = "{}{}".format(dt[:2] ,dt[3:])
            
             # name, priority, completed
-            name = task['name'].capitalize()
+            name = task['name'].upper()
             priority = task['priority']
             if task['completed']: completed = "Y"
             else: completed = "N"

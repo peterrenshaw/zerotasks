@@ -201,7 +201,7 @@ def sort(data, key, value):
         if key in task:
             if bool(task[key]) == value:
                 if key:
-                    if not value:
+                    if value:
                         # add task to top of list
                         s.insert(0, task)
             else:
@@ -218,52 +218,55 @@ def sort_todo(data):
 def rebuild():
     """build lists from archive"""
     # tasks from archive
-    tasks = []
     fpn = IO.get_filepathname()
     if fpn: 
         tasks = IO.read_all(fpn)
+
+        # TASKS write
+        fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
+        rend_task = display(tasks, show_count=False, is_raw=False, show=False, is_detailed=True)
+        if not IO.write(fpn, rend_task, is_json=False, save_bit='w'):
+            DISERR("Cannot write TASKS")
+            return False
+
+        # TODOs write
+        todo = sort_todo(tasks)
+        rend_todo = display(todo, show_count=True, is_raw=False, show=False)
+        fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TODO")
+        if rend_todo:
+            if not IO.write(fpn, rend_todo, is_json=False, save_bit='w'):
+                DISERR("Cannot write TODO")
+                return False
+
+        # TODOs written to $HOME
+        fpn = os.path.join(config.FP_HOME, "TODO")
+        if not IO.write(fpn, rend_todo, is_json=False, save_bit='w'):
+            DISERR("Cannot write TODO to home")
+            return False
+
+        # DONE write
+        done = sort_done(tasks)
+        rend_done = display(done, show_count=False, is_raw=False, show=False)
+        fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "DONE")
+        if rend_done:
+            if not IO.write(fpn, rend_done, is_json=False, save_bit='w'):
+                DISERR("Cannot write DONE")
+                return False
+
+        return True
     else:
         DISERR("Cannot read file content")
         return False 
 
-    # TASKS write
-    # sort tasks, write task list
-    # TASKS is json list in raw format
-    #fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
-    #if not IO.write(fpn, tasks):
-    #    DISERR("Cannot write TASKS")
-    #    return False
-
-    # TODOs write
-    todo = sort_todo(tasks)
-    rend_todo = display(todo, show_count=True, is_raw=False, show=False)
-    fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TODO")
-    if rend_todo:
-         if not IO.write(fpn, rend_todo, is_json=False, save_bit='w'):
-              DISERR("Cannot write TODO")
-              return False
-
-         # TODOs written to $HOME
-         fpn = os.path.join(config.FP_HOME, "TODO")
-         if not IO.write(fpn, rend_todo, is_json=False, save_bit='w'):
-               DISERR("Cannot write TODO to home")
-               return False
-
-    # DONE write
-    #done = sort_done(tasks)
-    #rend_done = display(done, show_count=False, is_raw=False, show=False)
-    #fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "DONE")
-    #if rend_done:
-    #    if not IO.write(fpn, rend_done, is_json=False, save_bit='w'):
-    #        DISERR("Cannot write DONE")
-    #        return False
-
-    return True
 #------ sort -------
 
 
 #------ display -------
-def display(data, show_count=False, is_raw=False, show=True):
+def display(data, 
+            show_count=False, 
+            is_raw=False, 
+            show=True,
+            is_detailed=False):
     """lets see if we can itterate thru data as a list"""
     if is_raw:
         for task in data:
@@ -276,8 +279,7 @@ def display(data, show_count=False, is_raw=False, show=True):
 
         # Attention: ZERO TASKS
         if not len(data):
-            print("Zero Tasks")
-            return True
+            return False
 
         # TASKS have been found
         for task in data:
@@ -286,8 +288,9 @@ def display(data, show_count=False, is_raw=False, show=True):
             dt = fmt_short_date(epoch)
             dt = "{}{}".format(dt[:2] ,dt[3:])
            
-            # name, priority, completed
+            # name, description, priority, completed
             name = task['name'].upper()
+            comment = task['description'].capitalize()
             priority = task['priority']
             if task['completed']: completed = "Y"
             else: completed = "N"
@@ -296,7 +299,12 @@ def display(data, show_count=False, is_raw=False, show=True):
             if show_count:
                 line = "#{} {} {} {} {}".format(count, dt, priority, completed, name)
             else:
-                line = "{} {} {} {}".format(dt, priority, completed, name)
+                # detailed with comment OR short line?
+                if is_detailed and comment:
+                    spaces = " " * 11   # HACK: exactly 11 spaces
+                    line = "{} {} {} {}\n{}{}".format(dt, priority, completed, name, spaces, comment)
+                else:
+                    line = "{} {} {} {}".format(dt, priority, completed, name)
             if lines: lines = "{}\n{}".format(lines, line)
             else: lines = "{}".format(line)
           
@@ -312,17 +320,20 @@ def display(data, show_count=False, is_raw=False, show=True):
 
 def display_all():
     """display the tasks"""
+    tasks = []
     fpn = IO.get_filepathname()
     if fpn: tasks = IO.read_all(fpn)
     else: DISERR("Cannot read file content")
         
-    todo = []
-    for task in tasks:
-         if not task['completed']:
-             todo.insert(0, task)
-    if not display(todo, show_count=True):
-        DISERR("Cannot display filepath","<{}>".format(fnp))
-
+    if tasks:
+        todo = []
+        for task in tasks:
+            if not task['completed']:
+                todo.insert(0, task)
+        if not display(todo, show_count=True):
+            DISERR("Cannot display filepath","<{}>".format(fnp))
+    else:
+        return False
 def disbug(title, message, priority, is_debug=config.DEBUG):
     if is_debug:
         if priority == 1:

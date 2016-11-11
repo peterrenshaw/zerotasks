@@ -256,7 +256,9 @@ def read_all(file_list):
     for fpn in file_list:
         task = read(fpn)
         if task:
-            tasks.append(task)
+            # task sent to top allowing
+            # sort by date created
+            tasks.insert(0, task)
         else:
             return False
     return tasks

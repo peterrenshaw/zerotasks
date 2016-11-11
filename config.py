@@ -32,9 +32,11 @@ DDMMYY = "%a%d%m"
 DMY = "%D%M%Y"
 DD = "%a"
 
+APP_NAME = "Zero Tasks"
+APP_DIR = "zerotasks"
 FN_EXT = "tsk"
 FP_HOME = "/Users/pr"
-FP_TASKS = os.path.join(FP_HOME, "work/code/zt")
+FP_TASKS = os.path.join(FP_HOME, "work/code", APP_DIR)
 TASKS_ARCHIVE = os.path.join(FP_TASKS, "2016")
 TASK_ATTRIBUTES = dict(name="",            # name of task
                        description="",     # task comment (optional)

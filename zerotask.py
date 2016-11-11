@@ -65,6 +65,7 @@ def main():
             tools.DISERR("Cannot display tasks")
 
     if not (options.new or options.start or options.end or options.finish or options.rebuild or options.display):
+        print(config.TITLE)
         parser.print_help()
 
 

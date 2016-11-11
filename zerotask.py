@@ -43,30 +43,22 @@ def main():
     if options.new:
         if not tools.new(options.new, options.comment, options.priority):
             tools.DISERR("Cannot add new task")
-        if not tools.rebuild():
-            tools.DISERR("Cannot rebuild tasks")
  
     if options.start:
-        if not tools.update_task(options.start, 'start'):
+        if not tools.update_start(options.start):
             tools.DISERR("Cannot update start on task","#{}".format(options.start))
- 
+
     if options.end:
-        if not tools.update_task(options.end, 'end'):
+        if not tools.update_end(options.end):
             tools.DISERR("Cannot update end on task","#{}".format(options.start))
 
     if options.finish:
-        if not tools.update_task(options.finish, 'completed'):
+        if not tools.update_completed(options.finish):
             tools.DISERR("Cannot update end on task","#{}".format(options.start))
-        if not tools.rebuild():
-            tools.DISERR("Cannot rebuild tasks")        
-        if tools.display_all():
-            tools.DISERR("Cannot display tasks")
 
     if options.rebuild:
         if not tools.rebuild():
             tools.DISERR("Cannot rebuild tasks")
-        if tools.display_all():
-            tools.DISERR("Cannot display tasks")
 
     if options.display:
         if tools.display_all():

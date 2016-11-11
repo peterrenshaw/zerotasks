@@ -215,10 +215,12 @@ def write(filepathname, data, is_json=True, save_bit='w'):
     if filepathname:
         fp = os.path.dirname(filepathname)
         if not os.path.isdir(fp):
+            tools.DISCOM("IO.write","mkdir <{}>".format(fp))
             os.makedirs(fp)
         try:
             f = open(filepathname, save_bit)
-  
+            tools.DISCOM("IO.write","open <{}> to <{}>".format(filepathname, save_bit)) 
+
             # write as json or raw file
             if is_json:
                 task = "{}\n".format(json.dumps(data, 
@@ -264,6 +266,9 @@ def get_filepathname(filepath=config.TASKS_ARCHIVE, ext=config.FN_EXT):
     fp = "{}/*".format(filepath)
     filepaths = glob.glob(fp)
 
+    tools.DISCOM("IO.get_filepathname","fp=<{}>".format(fp))
+    tools.DISCOM("IO.get_filepathname","filepaths=<{}>".format(filepaths))
+
     # extact filepaths by glob
     for dirs in filepaths:
         d = "{}/*".format(dirs)
@@ -275,12 +280,15 @@ def get_filepathname(filepath=config.TASKS_ARCHIVE, ext=config.FN_EXT):
                 # no extension/junk data
                 fn = "{}/*".format(fp)
 
+            tools.DISCOM("IO.get_filepathname","fn=<{}>".format(fn))
+
             # extract filenames
             fpn = os.path.join(fp, fn)
             for tfn in glob.glob(fpn):
                  if os.path.isfile(tfn):
                      paths.append(tfn)
 
+    tools.DISCOM("IO.get_filepathname","paths=<{}>".format(paths))
     return paths
 #------ IO -------
 

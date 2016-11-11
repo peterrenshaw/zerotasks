@@ -156,25 +156,40 @@ def update_task(number, key):
          if fpn: tasks = sort_todo(IO.read_all(fpn))
          else: DISERR("Cannot read file content")
 
-         epoch = get_epoch()
          count = 1
          for task in tasks:
-              if count == int(number):
-                  if key == 'completed':
-                      task[key] = True
-                  else: # start, end only
-                      task[key] = epoch
+             if count == int(number):
+                  if key == 'start':
+                      task['start'] = get_epoch()
+                  elif key == 'end':
+                      task['end'] = get_epoch()
+                  elif key == 'completed':
+                      task['completed'] = True
+                  else:
+                      pass
+
+                  print("num={} key={} task={}".format(number, key, task[key], task))
+
                   fpn = IO.get_path(task)
-                  print(task, key, epoch, fpn)
+                  DISWARN("tools.update_task","fpn <{}>".format(fpn))
+                  DISWARN("tools.update_task","key <{}>".format(key))
+                  DISWARN("tools.update_task","task <{}>".format(task))
                   if not IO.write(fpn, task):
                       DISERR("Cannot write task")
-                  break
-              count += 1
+                      break
+
+                  count += 1
 
          return True
     else:
          DISERR("Cannot read file content")
          return False
+def update_start(number):
+    return update_task(number, 'start')
+def update_end(number):
+    return update_task(number, 'end')
+def update_completed(number):
+    return update_task(number, 'completed')
 #------ task ------
 
 
@@ -185,21 +200,25 @@ def sort(data, key, value):
     for task in data:
         if key in task:
             if bool(task[key]) == value:
-                s.insert(0, task)
+                if key:
+                    if not value:
+                        # add task to top of list
+                        s.insert(0, task)
             else:
                 pass
         else:
             return False
     return s
 def sort_done(data):
-    """convenience for sort: sort by completed, done"""
+    """convenience for sort: sort by completed, true (done)"""
     return sort(data, key="completed",value=True)
 def sort_todo(data):
-    """convenience for sort: sort by completed, todo"""
+    """convenience for sort: sort by completed, false (todo)"""
     return sort(data, key="completed",value=False)
 def rebuild():
     """build lists from archive"""
     # tasks from archive
+    tasks = []
     fpn = IO.get_filepathname()
     if fpn: 
         tasks = IO.read_all(fpn)
@@ -207,39 +226,39 @@ def rebuild():
         DISERR("Cannot read file content")
         return False 
 
+    # TASKS write
     # sort tasks, write task list
     # TASKS is json list in raw format
-    fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
-    if not IO.write(fpn, tasks):
-        DISERR("Cannot write TASKS")
-        return False
+    #fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
+    #if not IO.write(fpn, tasks):
+    #    DISERR("Cannot write TASKS")
+    #    return False
 
-    # write todo lists
+    # TODOs write
     todo = sort_todo(tasks)
-    dsp_todo = display(todo, show_count=True, is_raw=False, show=False)
+    rend_todo = display(todo, show_count=True, is_raw=False, show=False)
     fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TODO")
-    if dsp_todo:
-         if not IO.write(fpn, dsp_todo, is_json=False, save_bit='w'):
+    if rend_todo:
+         if not IO.write(fpn, rend_todo, is_json=False, save_bit='w'):
               DISERR("Cannot write TODO")
               return False
 
-         # write TODOs to $HOME
-         fpn = os.path.join(config.FP_HOME, "TODO")
-         if not IO.write(fpn, dsp_todo, is_json=False, save_bit='w'):
-               DISERR("Cannot write TODO to home")
-               return False
+         # TODOs written to $HOME
+         #fpn = os.path.join(config.FP_HOME, "TODO")
+         #if not IO.write(fpn, rend_todo, is_json=False, save_bit='w'):
+         #      DISERR("Cannot write TODO to home")
+         #      return False
 
-    # write done list
-    done = sort_done(tasks)
-    dsp_done = display(done, show_count=False, is_raw=False, show=False)
-    fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "DONE")
-    if dsp_done:
-        if not IO.write(fpn, dsp_done, is_json=False, save_bit='w'):
-            DISERR("Cannot write DONE")
-            return False
+    # DONE write
+    #done = sort_done(tasks)
+    #rend_done = display(done, show_count=False, is_raw=False, show=False)
+    #fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "DONE")
+    #if rend_done:
+    #    if not IO.write(fpn, rend_done, is_json=False, save_bit='w'):
+    #        DISERR("Cannot write DONE")
+    #        return False
 
     return True
-
 #------ sort -------
 
 
@@ -254,6 +273,13 @@ def display(data, show_count=False, is_raw=False, show=True):
     else:
         lines = ""
         count = 1
+
+        # Attention: ZERO TASKS
+        if not len(data):
+            print("Zero Tasks")
+            return True
+
+        # TASKS have been found
         for task in data:
             # convert epoch to readable format
             epoch = task['created']

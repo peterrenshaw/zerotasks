@@ -232,10 +232,10 @@ def write(filepathname, data, is_json=True, save_bit='w'):
             f.flush()
             f.write(task)
             f.close()
-            #print("written to file {}\n\{}".format(filepathname, data))
+            tools.DISCOM("IO.write", "written to file {}\n\{}".format(filepathname, data))
         except IOError as e:
             f = None
-            print("Error writing file <{}>".format(filepathname))
+            tools.DISERR("IO.write", "Error writing file <{}>".format(filepathname))
             return False
         else:
             pass

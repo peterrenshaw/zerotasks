@@ -1,0 +1,53 @@
+Patterns:
+
+A list of patterns of usage that hopefully highlights problems.
+
+
+------ TASK ------
+
+* TASK is entered
+
+   You enter a task by giving the task a TASK.name and 
+   quick TASK.description. If you want you can TASK.start
+   and when you finish the TASK, hit a button to TASK.stop
+
+   Q. Is this TASK completed?
+
+   If a TASK is TASK.stop'ped you may not have completed the
+   TASK. If you have completed, hit the completed button.
+
+
+* TASK has many TASK.start and TASK.end times
+
+    A complicated task is created that really should be 
+    decomposed so it's not finished at the alloted time.
+    This means you have to store list of start,end and duration
+    information per TASK.
+
+
+* a TASK is started
+
+    TASK.name and TASK.description is entered. Hit the start button
+    which generates the TASK.start data point. TASK.start records start 
+    time. 
+
+
+* a TASK is completed
+
+    TASK is stopped and completed, hit the completed/finish button.
+    TASK.start, TASK.end added to TASK.times list. TASK.completed flag
+    set to True. 
+
+* a TASK is stopped
+
+    TASK is stopped, not completed, hit the stop button. The TASK.end
+    is recorded, TASK.completed checked to False and TASK.start, TASK.end
+    entered into TASK.times list. 
+
+* TASK is re-prioritised
+
+    TASK has TASK.priority value changed by entering a new value.
+    This should recorded to file. The change of priority is not recorded.
+    
+
+------ TASK ------

@@ -1,0 +1,140 @@
+2016AUG18
+
+Abstract
+    
+Write a description of a TASK and TIME TASKER tool. The tool should 
+be able to do the following:
+
+  * add a TASK to a TODO LIST
+  * modify the ORDER of a TASK 
+  - this is called PRIORITY 
+  * select TASK and start TIMER
+  * work until TASK is finished OR work to a pre-set TIMER
+  * show TODO LIST of finished TASK(s)
+  * show TODO LIST of non-completd
+
+  * show for each TASK
+  - TIME started
+  - TASK elapsed time
+  - TIME completed
+  - STATUS
+  - COMMENT
+  - PRIORITY
+
+
+Problem solved
+
+* Be able to enter a list of tasks, prioritize them.
+
+* Select a TODO list (task list) to work on 
+
+* Select an individual TASK  to work on, time it and remove to TODO list
+
+* Display completed tasks with time taken, order completed and status
+  of completed tasks within TODO list, per time period.
+
+Problems not to be solved
+
+* Multiple assignment of tasks to others
+
+* Calander application
+
+* Latest front-end technology tools to be used
+
+* Complicated data storage retrival
+
+
+Description
+
+TASK: 
+
+Code to write a task is, filename of task name with following yaml
+data written to file that can be updated by hand or machine.
+
+filename: Text file with a name that describes the task:
+
+    # task data
+    - description: one line description
+
+    # status data
+    - priority: [0-5]
+    - completed: True?/False
+
+    # timing data
+    - path: 'YYYY/MMM/DD'
+    - created: epoch
+    - start: epoch
+    - end: epoch
+    - duration: epoch
+    - completed: boolean
+
+
+TODO LIST
+
+A list of known tasks with completion status and priority
+
+filename: Text file with name of todo list
+
+    * todo list data
+    - list of tasks: [filenames]
+    - status: [0-99]
+    - priority: integer
+
+
+TASKER
+
+A file structure that stores started and completed tasks in date ordered
+directories
+
+    ------ storage of todo lists -------
+    TODO-TASK
+        todo-list1.txt
+            tasks: [task1.txt, task2.txt, task3.txt]
+            status: False
+            priority: 3
+        todo-listN.txt
+            tasks: [task1.txt]
+            status: True
+            priority: 1
+
+    ------ storage of tasks ------
+    YYYY
+        MMM
+            DD
+                taskname.txt
+
+ This structure shows how tasks are stored, by their creation date.
+A TODO-TASK is created and then can be assigned to existing tasks.
+The separation of both TASKS and LISTS means both can be interregated
+independently.
+
+Could this be too complicated?
+
+You could acheive this by simply creating a list in memory by writing 
+(prepend, to top of stack) saved file to a single file and use the 
+above files as a backup?
+
+so:
+    task list:
+               task N
+               task 20
+               task 19
+               task 18... etc
+
+this means you can load/save the tasks quickly. When updated, update the 
+stack AND sync to the file (overwrite?).
+
+
+DISPLAY
+
+NEW
+    Task
+        name          20 character description, no spaces
+        description   120 char description
+        priority      0-9
+        completed     auto-filled on stop OR 
+
+        start
+        end
+        duration
+

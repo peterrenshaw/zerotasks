@@ -68,8 +68,7 @@ def fmt_short_date(epoch, cust_strf=config.DDMMYY):
 #------- task -------
 def new(name, 
         comment="",
-        priority=1,
-        limit=False):
+        priority=1):
     """create a new task, save"""
     # name, comment, priority
     name = name
@@ -77,10 +76,7 @@ def new(name,
     if priority: task_priority = priority
         
     # task limit
-    if limit:
-        task_limit = config.IVL_MAX
-    else:
-        task_limit = config.IVL_MIN
+    task_limit = config.IVL_MIN
 
     # rebuild TASKS
     fpn = IO.get_filepathname()
@@ -103,10 +99,6 @@ def new(name,
             fp = IO.get_path(task)
             fpn = os.path.join(config.FP_HOME, config.FP_TASKS, fp)
             if IO.write(fpn, task):
-                #fpn = IO.get_filepathname()
-                #if fpn: tasks = IO.read_all(fpn)
-                #else: DISERR("Cannot read file content")
-
                 return True
             else:
                 DISERR("Cannot write new task","task {}\nfpn <{}>".format(task, fpn))
@@ -127,8 +119,7 @@ def new_task(name,
         task['name'] = name
         task['description'] = description
         task['priority'] = priority
-        epoch = get_epoch()
-        task['created'] = epoch
+        task['created'] = get_epoch()
         return dict(task)
     else:
         return {}

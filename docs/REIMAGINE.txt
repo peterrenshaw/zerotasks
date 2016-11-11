@@ -1,0 +1,66 @@
+#======
+# name: reimagine.txt
+# date: 2016SEP22
+# prog: pr
+# desc: rethink what I have done 
+#       and how I could get a 
+#       better result.
+#======
+
+
+ I've been hacking on TSKR for a few days now. The original idea is still sound.
+How can I improve the actual product? How can I make it smaller, more accurate and
+most of all better?
+
+Idea:
+
+    Use a central repository of files in YYYY/MMM/DD format. In the file is a editable
+JSON file. The file is made up of a JSONified list of attributes, the most important 
+ones are:
+          
+         created
+         name
+         description
+         priority
+         completed
+         filepath
+         filename
+         times      list of updated, completed
+
+    A set of tools is created that first thing it does is read the SOURCE. When the 
+source is read, the program processes the TASKS.
+
+     READ read STORE for TASKS and add to UPDATE, DISPLAY list.
+
+     SAVE save the task list into two lists
+          TODO and TASKS.
+
+          TODO is a simple list of open TASKS in 
+          order of their priority
+
+          TASKS is a simple list of un-orderd stack
+          of tasks. This could get big so how do you 
+          restrict this when assigning?
+
+     UPDATE
+          * TASKS completed are processed. 
+            Those TASKS completed, removed from TODO, archived to STORE.
+            ARCHIVING means appending a new record to the store file.
+        
+          * TASKS newly added, not completed are added to TODO in order.
+     NEW
+          create a new TASK. Add to STORE and add to TASK list in order of
+          entry.
+
+     DISPLAY
+
+          show TASKS or TODO or ARCHIVE
+
+          TASKS
+          summary of tasks in line order, status highlighted
+
+          TODO
+          critical list details shown in order of priority (other order)
+
+          ARCHIVE
+          show detail of history

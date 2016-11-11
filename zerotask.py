@@ -21,22 +21,22 @@ import config
 def main():
     """main entry point for cli"""
     parser = argparse.ArgumentParser(description="")
-    
+
+
+    # ------ verb task -------
+    parser.add_argument("-d","--display", action="store_true",
+                        help="display file content")
+    parser.add_argument("-r","--rebuild", action="store_true",
+                        help="rebuild the TASK, DONE lists")    
     # ------ new task -------
     parser.add_argument("-n","--new",help="create a new task")
     parser.add_argument("-c","--comment",help="comment for new task")
     parser.add_argument("-p","--priority",help="priority for new task")
-    parser.add_argument("-f","--finish",help="task finished")
-    # ------ verb task -------
+    # ------ task timing -------
     parser.add_argument("-s","--start",help="task started")
     parser.add_argument("-e","--end",help="task ended")
-    parser.add_argument("-d","--display", action="store_true",
-                        help="display file content")
-    parser.add_argument("-r","--rebuild", action="store_true",
-                        help="rebuild the TASK, DONE lists")
-    parser.add_argument("-i", "--increase", action="store_true",
-                        help="increase maximum numnber of tasks")
-
+    parser.add_argument("-f","--finish",help="task finished")
+    # ------ task options ------
     options = parser.parse_args()
 
 
@@ -63,6 +63,9 @@ def main():
     if options.display:
         if tools.display_all():
             tools.DISERR("Cannot display tasks")
+
+    if not (options.new or options.start or options.end or options.finish or options.rebuild or options.display):
+        parser.print_help()
 
 
 # main entry point for cli

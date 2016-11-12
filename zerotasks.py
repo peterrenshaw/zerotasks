@@ -24,6 +24,14 @@ import tools
 import config
 
 
+__version__ = '0.0.1'
+__author__ = 'Peter Renshaw'
+__license__ = 'GNU GPL 3.0'
+__email__ = 'peterenshaw@seldomlogical.com'
+__url__ = 'https://github.com/peterrenshaw/zerotasks'
+__description__ = """This is a TODO system that I want to display the latest things I'm doing on both console and webpage AND/OR service online. In the example above, the TODO list is integrated into bash and the console."""
+
+
 def main():
     """main entry point for cli"""
     parser = argparse.ArgumentParser(description="")

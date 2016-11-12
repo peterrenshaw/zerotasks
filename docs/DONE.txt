@@ -1,0 +1,33 @@
+ _____                      ______           __       
+/__  /  ___  _________     /_  __/___ ______/ /_______
+  / /  / _ \/ ___/ __ \     / / / __ `/ ___/ //_/ ___/
+ / /__/  __/ /  / /_/ /    / / / /_/ (__  ) ,< (__  ) 
+/____/\___/_/   \____/    /_/  \__,_/____/_/|_/____/  
+
+
+DONE:
+
+  This is the output of the DONE file. It's a pretty printed list of tasks
+in their raw state. Fields include minimised date (SA1211), priority, completed 
+status, the task title and task comment.
+
+The idea here is to have a list of all current completed tasks for reading.
+
+
+SA1211 1 Y ZT TEST ORDER BUG
+SA1211 1 Y ZT REV DISPLAY ORDER
+SA1211 1 Y ZT MORE ORDER BUG TESTING
+SA1211 1 Y ZT KILL BUG IN DIS ORDER
+SA1211 1 N ZT INSTALL SCRIPT
+SA1211 1 N WRITE ZT ARTICLE
+           why task completion is difficult / how to focus thru tasks / outline design / talk about attempts / highlight article / future additions
+FR1111 1 Y ZT RENDER TASKS
+           render tasks into readable list
+FR1111 1 Y ZT INSTALL SCRIPT
+           build zt install script
+...
+...
+...
+
+TU2510 1 Y DEBUG FOR IO.STORE
+           debugging code and debug print statements

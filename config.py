@@ -31,10 +31,12 @@ DMY = "%D%M%Y"
 DD = "%a"
 
 APP_NAME = "Zero Tasks"
-APP_DIR = "zerotasks"
-FN_EXT = "tsk"
+
 FP_HOME = machine.HOME
+APP_DIR = machine.APP_DIR 
 FP_REL_PATH = machine.REL_PATH
+
+FN_EXT = "tsk"
 FP_TASKS = os.path.join(FP_HOME, FP_REL_PATH, APP_DIR)
 TASKS_ARCHIVE = os.path.join(FP_TASKS, "2016")
 TASK_ATTRIBUTES = dict(name="",            # name of task

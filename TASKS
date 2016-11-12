@@ -1,3 +1,4 @@
 {"completed": false,"created": 1478940261.0,"description": "at present no sort of priorities / sort by priority","end": 0.0,"name": "zt sort by priority","priority": "1","start": 0.0}
 {"completed": true,"created": 1478946900.0,"description": "remove prettyprint from TASKS, redo in DONE","end": 1478947520.0,"name": "zt fix TASKS","priority": "1","start": 1478947517.0}
 {"completed": false,"created": 1478947619.0,"description": "is it a good idea to geneate DONE, even if empty? or just leave blank if no completed tasks?","end": 0.0,"name": "zt add DONE even if empty","priority": "3","start": 0.0}
+{"completed": false,"created": 1478950461.0,"description": "why / explain reason for focused tasks / cite post I found idea / things I noticed coding / result / todo ","end": 0.0,"name": "writeup zt blog post","priority": "2","start": 0.0}

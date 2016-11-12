@@ -241,7 +241,12 @@ def rebuild():
         fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
         DISCOM("tools.rebuild","tasks=<{}>".format(tasks))
         DISCOM("tools.rebuild","fpn=<{}>".format(fpn))
-        if not IO.write_tasks(fpn, tasks):
+
+        # kill old file
+        if os.path.isfile(fpn):
+            os.remove(fpn)
+        # re-write file
+        if not IO.write_tasks(fpn, tasks, 'a'):
             DISERR("tools.rebuild","Cannot write TASKS")
             return False
 
@@ -298,7 +303,7 @@ def display(data,
 
         # Attention: ZERO TASKS
         if not len(data):
-            return False
+            return lines   # empty, False
 
         # TASKS have been found
         for task in data:
@@ -337,10 +342,7 @@ def display(data,
             # do we want to print?
             if show: print("{}".format(line.upper()))
             
-        if show:
-            return True
-        else:
-            return "{}\n".format(lines)
+        return "{}\n".format(lines)
 
 def display_all():
     """display the tasks"""

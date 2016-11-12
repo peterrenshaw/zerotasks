@@ -249,7 +249,7 @@ def write(filepathname, data, is_json=True, save_bit='w'):
         else:
             pass
         return True
-def write_tasks(fpn, data):
+def write_tasks(fpn, data, save_bit='a'):
     """write all the tasks to a directory"""
     for task in data:
         if not fpn:
@@ -257,9 +257,10 @@ def write_tasks(fpn, data):
 
         tools.DISCOM("IO.write_tasks","fpn={}".format(fpn)) 
         tools.DISCOM("IO.write_tasks","task={}".format(task)) 
-        if not write(fpn, task, is_json=True, save_bit='a'):
+        if not write(fpn, task, is_json=True, save_bit=save_bit):
             tools.DISERR("IO.write_tasks", "Error cannot save task to <{}>".format(options.output))
             return False
+
     return True
 def read_all(file_list):
     """read all the tasks in given directory"""

@@ -17,11 +17,9 @@
           30 31
 
           TODO
-          1 N SORT TASKS BY PRIORITY
-          2 N FIX DISPLAY ON TASK ADD
-          2 N READABILITY OF TODO
-          1 N TEST CODE FOR IO
-          3 N DEBUG TASK.TASKS
+
+          #1 SA1211 1 N ZT SORT BY PRIORITY
+          #2 SA1211 3 N ZT ADD DONE EVEN IF EMPTY
 
           pr it's saturday 29 october @ 13:44:53
           logins       4
@@ -36,7 +34,40 @@ list is integrated into bash and the console.
 
 Why?
 
-[insert text here :)]
+The tool should 
+be able to do the following:
+
+  * add a TASK to a TODO LIST
+  * modify the ORDER of a TASK 
+  - this is called PRIORITY 
+  * select TASK and start TIMER
+  * work until TASK is finished OR work to a pre-set TIMER
+  * show TODO LIST of finished TASK(s)
+  * show TODO LIST of non-completd
+
+  * show for each TASK
+  - TIME started
+  - TASK elapsed time
+  - TIME completed
+  - STATUS
+  - COMMENT
+  - PRIORITY
+
+
+Problem solved
+
+* Be able to enter a list of tasks, prioritize them.
+* Select a TODO list (task list) to work on 
+ct an individual TASK  to work on, time it and remove to TODO list
+* Display completed tasks with time taken, order completed and status
+  of completed tasks within TODO list, per time period.
+
+Problems not to be solved
+
+* Multiple assignment of tasks to others
+* Calander application
+* Latest front-end technology tools to be used
+* Complicated data storage retrival
 
 
 Resources

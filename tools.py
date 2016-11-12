@@ -91,18 +91,6 @@ def new(name,
     else:
         tasks = []
         DISERR("Cannot readbuild filepathe name")
-        #return False
-
-    # sort tasks, write task lists
-    # TASKS is json list in raw format
-    if tasks:
-        fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
-        DISCOM("tools.new","fpn=<{}>".format(fpn))
-        DISCOM("tools.new","tasks=<{}>".format(tasks))
-        if not IO.write(fpn, tasks):
-            DISSERR("Cannot write TASKS")
-    else:
-        DISCOM("tools.new","zerotasks to TASKS")
 
     # throttle number of tasks allowed
     if is_taskcount_reached(task_limit):
@@ -113,7 +101,7 @@ def new(name,
             fpn = os.path.join(config.FP_HOME, config.FP_TASKS, fp)
             DISCOM("tools.new","fp=<{}>\nfpn=<{}>".format(fp, fpn))
             if IO.write(fpn, task):
-                return True
+                return rebuild()
             else:
                 DISERR("Cannot write new task","task {}\nfpn <{}>".format(task, fpn))
                 return False
@@ -141,10 +129,17 @@ def get_todo_count(filepath=config.FP_TASKS):
     """get tasks from TASKS list"""
     fpn = os.path.join(filepath, "TASKS")
     tasks = IO.read(fpn)
+ 
+    DISCOM("tools.get_todo_count", "fpn=<{}>".format(fpn))
+    DISCOM("tools.get_todo_count", "tasks=<{}>".format(tasks))
+
     count = 1
     for task in tasks:
-        if not task['completed']:
-            count += 1
+        DISCOM("tools.get_todo_count", "task=<{}>".format(task))
+        if task:
+            if 'completed' in task:
+                if not task['completed']:
+                    count += 1
     return count
 def is_taskcount_reached(task_max=config.IVL_MIN):
     """is number of tasks equal or greater than IVL set?"""
@@ -164,7 +159,6 @@ def update_task(number, key):
          else: DISERR("Cannot read file content")
          
          count = 1
-         #DISCOM("tools.update_task", tasks)
          DISCOM("tools.update_task", "count={}".format(count))
          DISCOM("tools.update_task", "tasks={}".format(tasks))
          for task in tasks:
@@ -240,13 +234,15 @@ def rebuild():
     # tasks from archive
     fpn = IO.get_filepathname()
     if fpn: 
-        tasks = IO.read_all(fpn)
 
-        # TASKS write
+        # sort tasks, write task list
+        # TASKS is json list in raw format
+        tasks = IO.read_all(fpn)
         fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
-        rend_task = display(tasks, show_count=False, is_raw=False, show=False, is_detailed=True)
-        if not IO.write(fpn, rend_task, is_json=False, save_bit='w'):
-            DISERR("Cannot write TASKS")
+        DISCOM("tools.rebuild","tasks=<{}>".format(tasks))
+        DISCOM("tools.rebuild","fpn=<{}>".format(fpn))
+        if not IO.write_tasks(fpn, tasks):
+            DISERR("tools.rebuild","Cannot write TASKS")
             return False
 
         # TODOs write
@@ -266,7 +262,7 @@ def rebuild():
 
         # DONE write
         done = sort_done(tasks)
-        rend_done = display(done, show_count=False, is_raw=False, show=False)
+        rend_done = display(done, show_count=False, is_raw=False, show=False, is_detailed=True)
         fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "DONE")
         if rend_done:
             if not IO.write(fpn, rend_done, is_json=False, save_bit='w'):
@@ -289,10 +285,13 @@ def display(data,
             is_detailed=False):
     """lets see if we can itterate thru data as a list"""
     if is_raw:
+        raw_tasks = []
         for task in data:
-            for key in task.keys():
+            if show: 
                 print("{}=<{}>".format(key, task[key]))
-        return True
+            else:
+                raw_tasks.insert(0, task)
+        return raw_tasks
     else:
         lines = ""
         count = 1

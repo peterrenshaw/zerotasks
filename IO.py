@@ -196,15 +196,17 @@ def get_path(task, basepath=config.FP_TASKS):
 def read(filepathname):
     """read a file, return content"""
     data = []
+    tools.DISCOM("IO.read","fpn=<{}>".format(filepathname))
     if os.path.isfile(filepathname):
         try:
             for line in open(filepathname, 'r'):
+                tools.DISCOM("IO.read","line=<{}>".format(line))
                 task = json.loads(line)
                 data.append(task)
                 #data.insert(0, task)
         except IOError as e:
-            print("error reading file <{}>".format(filepathname))
-            return False
+            tools.DISERR("IO.read", "error reading file <{}>".format(filepathname))
+            return data
         else:
             pass
         if data:
@@ -247,14 +249,16 @@ def write(filepathname, data, is_json=True, save_bit='w'):
         else:
             pass
         return True
-def write_tasks(data, fpn=""):
+def write_tasks(fpn, data):
     """write all the tasks to a directory"""
     for task in data:
         if not fpn:
             fpn = path(task)
-            
-        if not write(fpn, task):
-            print("Error cannot save task to <{}>".format(options.output))
+
+        tools.DISCOM("IO.write_tasks","fpn={}".format(fpn)) 
+        tools.DISCOM("IO.write_tasks","task={}".format(task)) 
+        if not write(fpn, task, is_json=True, save_bit='a'):
+            tools.DISERR("IO.write_tasks", "Error cannot save task to <{}>".format(options.output))
             return False
     return True
 def read_all(file_list):
@@ -265,10 +269,9 @@ def read_all(file_list):
         if task:
             # task sent to top allowing
             # sort by date created
-            #tasks.insert(0, task)
             tasks.append(task)
         else:
-            return False
+            return tasks
     return tasks
 def get_filepathname(filepath=config.TASKS_ARCHIVE, ext=config.FN_EXT):
     """extract all filepath names from the archive"""

@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 # ~*~ encoding: utf-8 ~*~
-"""
- _____                      ______           __       
-/__  /  ___  _________     /_  __/___ ______/ /_______
-  / /  / _ \/ ___/ __ \     / / / __ `/ ___/ //_/ ___/
- / /__/  __/ /  / /_/ /    / / / /_/ (__  ) ,< (__  ) 
-/____/\___/_/   \____/    /_/  \__,_/____/_/|_/____/  
 
-"""
 
-#======
+#=======
+#  _____                      ______           __       
+# /__  /  ___  _________     /_  __/___ ______/ /_______
+#   / /  / _ \/ ___/ __ \     / / / __ `/ ___/ //_/ ___/
+#  / /__/  __/ /  / /_/ /    / / / /_/ (__  ) ,< (__  ) 
+# /____/\___/_/   \____/    /_/  \__,_/____/_/|_/____/  
+#
 # name: tools.py
 # date: 2016NOV10
 # prog: pr
@@ -148,35 +147,44 @@ def is_taskcount_reached(task_max=config.IVL_MIN):
     return (count <= task_max)
 def update_task(number, key):
     """start the timeclock on a task"""
+    DISCOM("tools.update_task","number={}".format(number))
     if number:
          tasks = []
          fpn = IO.get_filepathname()
+         #DISCOM("tools.update_task","fpn={}".format(fpn))
          if fpn: tasks = sort_todo(IO.read_all(fpn))
          else: DISERR("Cannot read file content")
-
+         
          count = 1
+         #DISCOM("tools.update_task", tasks)
+         DISCOM("tools.update_task", "count={}".format(count))
+         DISCOM("tools.update_task", "tasks={}".format(tasks))
          for task in tasks:
+             #DISCOM("tools.update_task","task={} ({}) count={} number={}".format(task['name'], (count == int(number)), count, int(number)))
              if count == int(number):
+                  DISCOM("tools.update_task", 
+                         "{} {} {}/{} {}".format(task['start'], task['end'], task['completed'], count, number))
                   if key == 'start':
                       task['start'] = get_epoch()
-                  elif key == 'end':
-                      task['end'] = get_epoch()
                   elif key == 'completed':
                       task['completed'] = True
+                      task['end'] = get_epoch()
                   else:
                       pass
-
-                  print("num={} key={} task={}".format(number, key, task[key], task))
+                  #print("num={} key={} task={}".format(number, key, task[key], task))
 
                   fpn = IO.get_path(task)
-                  DISWARN("tools.update_task","fpn <{}>".format(fpn))
-                  DISWARN("tools.update_task","key <{}>".format(key))
-                  DISWARN("tools.update_task","task <{}>".format(task))
+                  #DISCOM("tools.update_task","fpn <{}>".format(fpn))
+                  #DISCOM("tools.update_task","key <{}>".format(key))
+                  #DISCOM("tools.update_task","task <{}>".format(task))
                   if not IO.write(fpn, task):
                       DISERR("Cannot write task")
-                      break
+                      return False
+             else:
+                 pass
 
-                  count += 1
+             # outside loop duffer
+             count += 1
 
          return True
     else:
@@ -196,12 +204,12 @@ def sort(data, key, value):
     """sort data by key and value"""
     s = []
     for task in data:
+        #DISCOM("tools.sort()", "task <{}>".format(task))
         if key in task:
             if bool(task[key]) == value:
-                if key:
-                    if value:
-                        # add task to top of list
-                        s.insert(0, task)
+                # add task to top of list
+                #DISCOM("tools.sort()", "--- ADDED task <{}> ADDED ---".format(task))
+                s.insert(0, task)
             else:
                 pass
         else:
@@ -288,7 +296,8 @@ def display(data,
            
             # name, description, priority, completed
             name = task['name'].upper()
-            comment = task['description'].capitalize()
+            if task['description']:                   # what about no comment?
+                comment = task['description'].lower()
             priority = task['priority']
             if task['completed']: completed = "Y"
             else: completed = "N"
@@ -327,9 +336,12 @@ def display_all():
         todo = []
         for task in tasks:
             if not task['completed']:
-                todo.insert(0, task)
+                #todo.insert(0, task)
+                todo.append(task)
         if not display(todo, show_count=True):
             DISERR("Cannot display filepath","<{}>".format(fnp))
+        else:
+            return True
     else:
         return False
 def disbug(title, message, priority, is_debug=config.DEBUG):

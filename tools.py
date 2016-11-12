@@ -89,21 +89,29 @@ def new(name,
     if fpn:
         tasks = IO.read_all(fpn)
     else:
+        tasks = []
         DISERR("Cannot readbuild filepathe name")
-        return False
+        #return False
 
     # sort tasks, write task lists
     # TASKS is json list in raw format
-    fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
-    if not IO.write(fpn, tasks):
-        DISSERR("Cannot write TASKS")
+    if tasks:
+        fpn = os.path.join(config.FP_HOME, config.FP_TASKS, "TASKS")
+        DISCOM("tools.new","fpn=<{}>".format(fpn))
+        DISCOM("tools.new","tasks=<{}>".format(tasks))
+        if not IO.write(fpn, tasks):
+            DISSERR("Cannot write TASKS")
+    else:
+        DISCOM("tools.new","zerotasks to TASKS")
 
     # throttle number of tasks allowed
     if is_taskcount_reached(task_limit):
+        DISCOM("tools.new","is_taskcount_reached = <{}>".format(is_taskcount_reached(task_limit)))
         task = new_task(name, comment, priority)
         if task:
             fp = IO.get_path(task)
             fpn = os.path.join(config.FP_HOME, config.FP_TASKS, fp)
+            DISCOM("tools.new","fp=<{}>\nfpn=<{}>".format(fp, fpn))
             if IO.write(fpn, task):
                 return True
             else:

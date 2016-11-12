@@ -185,10 +185,10 @@ def get_path(task, basepath=config.FP_TASKS):
         fn = Filename().getlo(name)
         fpn = os.path.join(fp, ymd, fn)
 
-        tools.DISERR("fn = {}".format(fn))
-        tools.DISERR("ymd = {}".format(ymd))
-        tools.DISERR("fp = {}".format(fp))
-        tools.DISERR("fpn = {}".format(fpn))
+        tools.DISCOM("fn = {}".format(fn))
+        tools.DISCOM("ymd = {}".format(ymd))
+        tools.DISCOM("fp = {}".format(fp))
+        tools.DISCOM("fpn = {}".format(fpn))
 
         return fpn
     else:
@@ -201,6 +201,7 @@ def read(filepathname):
             for line in open(filepathname, 'r'):
                 task = json.loads(line)
                 data.append(task)
+                #data.insert(0, task)
         except IOError as e:
             print("error reading file <{}>".format(filepathname))
             return False
@@ -264,7 +265,8 @@ def read_all(file_list):
         if task:
             # task sent to top allowing
             # sort by date created
-            tasks.insert(0, task)
+            #tasks.insert(0, task)
+            tasks.append(task)
         else:
             return False
     return tasks
@@ -294,7 +296,8 @@ def get_filepathname(filepath=config.TASKS_ARCHIVE, ext=config.FN_EXT):
             fpn = os.path.join(fp, fn)
             for tfn in glob.glob(fpn):
                  if os.path.isfile(tfn):
-                     paths.append(tfn)
+                     #paths.append(tfn)
+                     paths.insert(0, tfn)
 
     tools.DISCOM("IO.get_filepathname","paths=<{}>".format(paths))
     return paths

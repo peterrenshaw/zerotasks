@@ -63,7 +63,7 @@ def main():
 
     if options.finish:
         if not tools.update_completed(options.finish):
-            tools.DISERR("Cannot update end on task","#{}".format(options.start))
+            tools.DISERR("Cannot update end of task and completion","#{}".format(options.start))
 
     if options.rebuild:
         if not tools.rebuild():

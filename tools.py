@@ -209,12 +209,13 @@ def sort(data, key, value):
     """sort data by key and value"""
     s = []
     for task in data:
-        #DISCOM("tools.sort()", "task <{}>".format(task))
+        DISCOM("tools.sort()", "task <{}>".format(task))
         if key in task:
             if bool(task[key]) == value:
                 # add task to top of list
-                #DISCOM("tools.sort()", "--- ADDED task <{}> ADDED ---".format(task))
-                s.insert(0, task)
+                DISCOM("tools.sort()", "--- ADDED task <{}> ADDED ---".format(task))
+                #s.insert(0, task)
+                s.append(task)
             else:
                 pass
         else:

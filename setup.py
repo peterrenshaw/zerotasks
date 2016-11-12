@@ -12,7 +12,16 @@
 # name: zerotask.py
 # date: 2016NOV07
 # prog: pr
-# desc: Zero Tasks: read docs/ABOUT.txt
+# desc: Setup script. Zero Tasks: read docs/ABOUT.txt
+# usag: 
+# 
+#       # known to work python 3.5
+#       $ python3.5 setup.py install
+#
+#                  OR try
+#
+#       # experimental python 2.7
+#       $ python setup.py install
 #======
 
 
@@ -31,6 +40,7 @@ from zerotasks import __description__
 
 
 def read(fname):
+    """read the specified file into a field, in this case description"""
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 
@@ -43,7 +53,7 @@ setup(name = "zerotasks",
       author_email = __email__,
       url = __url__,
       packages = find_packages(),
-      keywords = ['realtime','data','local'],
+      keywords = ['realtime','data','local','tasks','todo'],
       zip_safe = True)
 
 

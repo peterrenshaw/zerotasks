@@ -17,13 +17,14 @@
 
 
 import os
+import machine
 
 
 #------- config -------
 DEBUG = False
 
-IVL_MIN = 6
-IVL_MAX = 10
+IVL_MIN = 6    # number of tasks are restricted to MIN at a time
+IVL_MAX = 10   # number of task can be stretched to MAX at a time
 
 DDMMYY = "%a%d%m"
 DMY = "%D%M%Y"
@@ -32,8 +33,9 @@ DD = "%a"
 APP_NAME = "Zero Tasks"
 APP_DIR = "zerotasks"
 FN_EXT = "tsk"
-FP_HOME = "/Users/pr"
-FP_TASKS = os.path.join(FP_HOME, "work/code", APP_DIR)
+FP_HOME = machine.HOME
+FP_REL_PATH = machine.REL_PATH
+FP_TASKS = os.path.join(FP_HOME, FP_REL_PATH, APP_DIR)
 TASKS_ARCHIVE = os.path.join(FP_TASKS, "2016")
 TASK_ATTRIBUTES = dict(name="",            # name of task
                        description="",     # task comment (optional)

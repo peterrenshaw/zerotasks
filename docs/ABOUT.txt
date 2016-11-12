@@ -36,7 +36,38 @@ list is integrated into bash and the console.
 
 Why?
 
-[insert text here :)]
+The tool should be able to do the following:
+
+  * add a TASK to a TODO LIST
+  * modify the ORDER of a TASK 
+  - this is called PRIORITY 
+  * select TASK and start TIMER
+  * work until TASK is finished OR work to a pre-set TIMER
+  * show TODO LIST of finished TASK(s)
+  * show TODO LIST of non-completd
+
+  * show for each TASK
+  - TIME started
+  - TASK elapsed time
+  - TIME completed
+  - STATUS
+  - COMMENT
+  - PRIORITY
+
+
+Problem solved
+
+* Be able to enter a list of tasks, prioritize them.
+* Select a TODO list (task list) to work on 
+* Select an individual TASK  to work on, time it and remove to TODO list
+* Display completed tasks with time taken, order completed and status
+  of completed tasks within TODO list, per time period.
+
+Problems not to be solved
+* Multiple assignment of tasks to others
+* Calander application
+* Latest front-end technology tools to be used
+* Complicated data storage retrival
 
 
 Resources

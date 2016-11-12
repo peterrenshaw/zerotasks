@@ -1,0 +1,119 @@
+ _____                      ______           __       
+/__  /  ___  _________     /_  __/___ ______/ /_______
+  / /  / _ \/ ___/ __ \     / / / __ `/ ___/ //_/ ___/
+ / /__/  __/ /  / /_/ /    / / / /_/ (__  ) ,< (__  ) 
+/____/\___/_/   \____/    /_/  \__,_/____/_/|_/____/  
+
+
+DEBUG 
+
+
+Added debug via config.DEBUG using tools.DISER, tools.DISWARN
+tools.DISCOM. Setting the config.DEBUG = True you get this kind
+of output. Helps with debuging problems.
+
+
+peters-MacBook-Pro:zerotasks pr$ python3.5 zerotasks.py -f 2
+> COM: tools.update_task
+> number=2
+> COM: IO.get_filepathname
+> fp=</Path/to/source/code/zerotasks/2016/*>
+> COM: IO.get_filepathname
+> filepaths=<['/Path/to/source/code/zerotasks/2016/NOV']>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/07/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/08/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/09/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/10/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/11/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/12/*.tsk>
+> COM: IO.get_filepathname
+> paths=<['/Path/to/source/code/zerotasks/2016/NOV/07/many-tasks-same-day.tsk', '/Path/to/source/code/zerotasks/2016/NOV/07/test-filepath.tsk', '/Path/to/source/code/zerotasks/2016/NOV/07/test-task-write.tsk', '/Path/to/source/code/zerotasks/2016/NOV/08/refactor-code-argument.tsk', '/Path/to/source/code/zerotasks/2016/NOV/08/test-done.tsk', '/Path/to/source/code/zerotasks/2016/NOV/09/apply-ivylee.tsk', '/Path/to/source/code/zerotasks/2016/NOV/09/code-reorginise.tsk', '/Path/to/source/code/zerotasks/2016/NOV/09/max-task-count.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/code-add-startendcompleted.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/code-rebuild-on-task-add.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/code-show-todo-post-add.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/code-test-rebuild-on-add.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/factorize-code.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/factorize-istaskcountreached.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/finish.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/game-garage.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/implement-ivl.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/indigo-pu--1330.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/order-ps3-the-last-of-us.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/pt.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-add-then-display.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-adds-to-task-2.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-adds-to-task.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-adds-to-task4.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-adds-to-task5.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-task.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-show-on-add.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/washing.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/code-bug-on-timestamps.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/pt.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/test-logs.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/zt-install-script.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/zt-render-tasks.tsk', '/Path/to/source/code/zerotasks/2016/NOV/12/write-zt-article.tsk', '/Path/to/source/code/zerotasks/2016/NOV/12/zt-install-script.tsk', '/Path/to/source/code/zerotasks/2016/NOV/12/zt-rev-display-order.tsk', '/Path/to/source/code/zerotasks/2016/NOV/12/zt-simplifiy-fin.tsk']>
+> COM: tools.update_task
+> count=1
+> COM: tools.update_task
+> tasks=[{'priority': '3', 'name': 'test logs', 'completed': False, 'created': 1478840288.0, 'description': 'testing if ^tail -f TASKS | less^ works', 'end': 0.0, 'start': 0.0}, {'priority': '1', 'name': 'zt install script', 'completed': False, 'created': 1478914566.0, 'description': '', 'end': 1478921892.0, 'start': 1478922885.0}, {'priority': '1', 'name': 'zt rev display order', 'completed': False, 'created': 1478913931.0, 'description': None, 'end': 1478921892.0, 'start': 1478922885.0}, {'priority': '1', 'name': 'zt simplifiy fin', 'completed': False, 'created': 1478913848.0, 'description': "simplify the start, end and finish flags so it's conceptually easier. At future date you may modify to store numbers of START/STOPS and finish flag", 'end': 1478921892.0, 'start': 1478922885.0}]
+> COM: tools.update_task
+> 1478922885.0 1478921892.0 False/2 2
+> COM: IO.Filepath.build
+> fp_home=</Users/pr>
+> COM: IO.Filepath.build
+> bp=</Path/to/source/code/zerotasks>
+> COM: IO.Filepath.build
+> rp=<>
+> COM: IO.Filepath.build
+> path=</Path/to/source/code/zerotasks>
+> COM : fn = zt-install-script.tsk
+> COM : ymd = 2016/NOV/12
+> COM : fp = /Path/to/source/code/zerotasks
+> COM : fpn = /Path/to/source/code/zerotasks/2016/NOV/12/zt-install-script.tsk
+> COM: IO.write
+> open </Path/to/source/code/zerotasks/2016/NOV/12/zt-install-script.tsk> to <w>
+> COM: IO.write
+> written to file /Path/to/source/code/zerotasks/2016/NOV/12/zt-install-script.tsk
+\{'priority': '1', 'name': 'zt install script', 'completed': True, 'created': 1478914566.0, 'description': '', 'end': 1478922906.0, 'start': 1478922885.0}
+> COM: tools.update_task
+> 1478922885.0 1478921892.0 False/2 2
+> COM: IO.Filepath.build
+> fp_home=</Users/pr>
+> COM: IO.Filepath.build
+> bp=</Path/to/source/code/zerotasks>
+> COM: IO.Filepath.build
+> rp=<>
+> COM: IO.Filepath.build
+> path=</Path/to/source/code/zerotasks>
+> COM : fn = zt-rev-display-order.tsk
+> COM : ymd = 2016/NOV/12
+> COM : fp = /Path/to/source/code/zerotasks
+> COM : fpn = /Path/to/source/code/zerotasks/2016/NOV/12/zt-rev-display-order.tsk
+> COM: IO.write
+> open </Path/to/source/code/zerotasks2016/NOV/12/zt-rev-display-order.tsk> to <w>
+> COM: IO.write
+> written to file /Path/to/source/code/zerotasks/2016/NOV/12/zt-rev-display-order.tsk
+\{'priority': '1', 'name': 'zt rev display order', 'completed': True, 'created': 1478913931.0, 'description': None, 'end': 1478922906.0, 'start': 1478922885.0}
+> COM: tools.update_task
+> 1478922885.0 1478921892.0 False/2 2
+> COM: IO.Filepath.build
+> fp_home=</Users/pr>
+> COM: IO.Filepath.build
+> bp=</Path/to/source/code/zerotasks>
+> COM: IO.Filepath.build
+> rp=<>
+> COM: IO.Filepath.build
+> path=</Path/to/source/code/zerotasks>
+> COM : fn = zt-simplifiy-fin.tsk
+> COM : ymd = 2016/NOV/12
+> COM : fp = /Path/to/source/code/zerotasks
+> COM : fpn = /Path/to/source/code/zerotasks/2016/NOV/12/zt-simplifiy-fin.tsk
+> COM: IO.write
+> open </Path/to/source/code/zerotasks/2016/NOV/12/zt-simplifiy-fin.tsk> to <w>
+> COM: IO.write
+> written to file /Path/to/source/code/zerotasks/2016/NOV/12/zt-simplifiy-fin.tsk
+\{'priority': '1', 'name': 'zt simplifiy fin', 'completed': True, 'created': 1478913848.0, 'description': "simplify the start, end and finish flags so it's conceptually easier. At future date you may modify to store numbers of START/STOPS and finish flag", 'end': 1478922906.0, 'start': 1478922885.0}
+peters-MacBook-Pro:zerotasks pr$ python3.5 zerotasks.py -d
+> COM: IO.get_filepathname
+> fp=</Path/to/source/code/zerotasks/2016/*>
+> COM: IO.get_filepathname
+> filepaths=<['/Path/to/source/code/zerotasks/2016/NOV']>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/07/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/08/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/09/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/10/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/11/*.tsk>
+> COM: IO.get_filepathname
+> fn=</Path/to/source/code/zerotasks/2016/NOV/12/*.tsk>
+> COM: IO.get_filepathname
+> paths=<['/Path/to/source/code/zerotasks/2016/NOV/07/many-tasks-same-day.tsk', '/Path/to/source/code/zerotasks/2016/NOV/07/test-filepath.tsk', '/Path/to/source/code/zerotasks/2016/NOV/07/test-task-write.tsk', '/Path/to/source/code/zerotasks/2016/NOV/08/refactor-code-argument.tsk', '/Path/to/source/code/zerotasks/2016/NOV/08/test-done.tsk', '/Path/to/source/code/zerotasks/2016/NOV/09/apply-ivylee.tsk', '/Path/to/source/code/zerotasks/2016/NOV/09/code-reorginise.tsk', '/Path/to/source/code/zerotasks/2016/NOV/09/max-task-count.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/code-add-startendcompleted.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/code-rebuild-on-task-add.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/code-show-todo-post-add.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/code-test-rebuild-on-add.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/factorize-code.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/factorize-istaskcountreached.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/finish.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/game-garage.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/implement-ivl.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/indigo-pu--1330.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/order-ps3-the-last-of-us.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/pt.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-add-then-display.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-adds-to-task-2.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-adds-to-task.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-adds-to-task4.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-adds-to-task5.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-new-task.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/test-show-on-add.tsk', '/Path/to/source/code/zerotasks/2016/NOV/10/washing.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/code-bug-on-timestamps.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/pt.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/test-logs.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/zt-install-script.tsk', '/Path/to/source/code/zerotasks/2016/NOV/11/zt-render-tasks.tsk', '/Path/to/source/code/zerotasks/2016/NOV/12/write-zt-article.tsk', '/Path/to/source/code/zerotasks/2016/NOV/12/zt-install-script.tsk', '/Path/to/source/code/zerotasks/2016/NOV/12/zt-rev-display-order.tsk', '/Path/to/source/code/zerotasks/2016/NOV/12/zt-simplifiy-fin.tsk']>
+#1 FR1111 3 N TEST LOGS
+
+

@@ -1,0 +1,22 @@
+ _____                      ______           __       
+/__  /  ___  _________     /_  __/___ ______/ /_______
+  / /  / _ \/ ___/ __ \     / / / __ `/ ___/ //_/ ___/
+ / /__/  __/ /  / /_/ /    / / / /_/ (__  ) ,< (__  ) 
+/____/\___/_/   \____/    /_/  \__,_/____/_/|_/____/  
+
+
+
+TASKS: 
+
+   A task is stored in this JSON format. This is the first task. Note there is no 
+values for start and end. Pretty simple. The file is stored in the STORE which creates
+a basic filepath YYYY/MMM/DD/task-name.tsk
+
+For example the first task recorded looks like this. It also shows some unexpected behaviour
+that has been filtered out, a dot in the filename.
+
+2016/OCT/25/debug-for-io.store.tsk
+
+"{\"end\": 0.0, \"name\": \"debug for IO.Store\", \"created\": 1477374613.0, \"completed\": true, \"priority\": \"1\", \"start\": 0.0, \"description\": \"debugging code and debug print statements\"}"
+
+

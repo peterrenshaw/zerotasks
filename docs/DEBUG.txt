@@ -13,7 +13,7 @@ tools.DISCOM. Setting the config.DEBUG = True you get this kind
 of output. Helps with debuging problems.
 
 
-peters-MacBook-Pro:zerotasks pr$ python3.5 zerotasks.py -f 2
+pr$ python3.5 zerotasks.py -f 2
 > COM: tools.update_task
 > number=2
 > COM: IO.get_filepathname

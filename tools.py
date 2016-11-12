@@ -168,7 +168,12 @@ def update_task(number, key):
                       task['start'] = get_epoch()
                   elif key == 'completed':
                       task['completed'] = True
-                      task['end'] = get_epoch()
+
+                      # clear up task datetime fields
+                      epoch = get_epoch()
+                      if not task['start']:       # haven't flagged?
+                          task['start'] = epoch   # time started
+                      task['end'] = epoch         # time completed
                   else:
                       pass
                   #print("num={} key={} task={}".format(number, key, task[key], task))
@@ -298,9 +303,13 @@ def display(data,
             name = task['name'].upper()
             if task['description']:                   # what about no comment?
                 comment = task['description'].lower()
+            else:
+                comment = ""
             priority = task['priority']
-            if task['completed']: completed = "Y"
-            else: completed = "N"
+            if task['completed']:
+                completed = "Y"
+            else:
+                completed = "N"
 
             # build line
             if show_count:
@@ -329,9 +338,13 @@ def display_all():
     """display the tasks"""
     tasks = []
     fpn = IO.get_filepathname()
-    if fpn: tasks = IO.read_all(fpn)
-    else: DISERR("Cannot read file content")
-        
+    if fpn: 
+        tasks = IO.read_all(fpn)
+    else:
+        fpn = "No filepath found" 
+        DISERR("Cannot read file content")
+        return False
+
     if tasks:
         todo = []
         for task in tasks:
@@ -339,7 +352,7 @@ def display_all():
                 #todo.insert(0, task)
                 todo.append(task)
         if not display(todo, show_count=True):
-            DISERR("Cannot display filepath","<{}>".format(fnp))
+            DISERR("Cannot display filepath","<{}>".format(fpn))
         else:
             return True
     else:

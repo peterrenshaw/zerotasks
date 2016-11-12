@@ -64,6 +64,7 @@ def main():
     if options.display:
         if not tools.display_all():
             tools.DISERR("Cannot display tasks")
+            print(config.APP_NAME)
 
     if not (options.new or options.start or options.finish or options.rebuild or options.display):
         print(config.TITLE)

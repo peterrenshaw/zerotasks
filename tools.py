@@ -9,6 +9,21 @@
 #  / /__/  __/ /  / /_/ /    / / / /_/ (__  ) ,< (__  ) 
 # /____/\___/_/   \____/    /_/  \__,_/____/_/|_/____/  
 #
+# This file is part of Zero Tasks.
+#
+# Zero Tasks is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Zero Tasks is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Foobar.  If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
+#
 # name: tools.py
 # date: 2016NOV10
 # prog: pr
@@ -398,17 +413,20 @@ def DISCOM(title, message=""):
     """display debug comment message"""
     return disbug(title, message, priority=3)
 #------ display user message ------
-def DISUSER(title, message=""):
+def disuser(title, message=""):
     """display direct user message, supply title, optional message"""
     if title:
-        print("{}".format(title))
+        msg = "{}".format(title)
         if message:
-            print("{}".format(message))
+            print("{}: {}".format(msg, message))
+        else:
+            print(msg)
     else:
+        print("> Err: tools.disuser\ncannot display user message")
         return False
 def MSG(title, message=""):
     """display direct user message"""
-    return disuser(title, message, priority=3)
+    return disuser(title, message)
 #------ display -------
 
 

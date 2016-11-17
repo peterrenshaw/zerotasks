@@ -71,7 +71,6 @@ def main():
             
     if options.display:
         if not tools.display_all():
-            tools.MSG("Error", "Cannot display tasks")
             tools.MSG(config.APP_NAME)
 
     if not (options.new or options.start or options.finish or options.rebuild or options.display):

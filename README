@@ -19,7 +19,7 @@
  GNU General Public License for more details.
 
  You should have received a copy of the GNU General Public License
- along with Foobar.  If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
+ along with Zero Tasks.  If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
          
               October 2016
           Su Mo Tu We Th Fr Sa
@@ -42,6 +42,10 @@
 
           DONE
 
+          TH1711 1 Y ZT ADD LICENSE FILE
+              should also update code headers with license type
+          TH1711 1 Y BUG INVALID MACHINE.HOME, REL_PATH CAN FAIL
+              if invalid paths are added to machine, a bad path should be captured at runtime
           TH1711 1 Y BUG ENTER MAX TASKS NO WARN
               should be an error/warning on entering greater than max tasks.
           SA1211 1 Y ZT FIX TASKS

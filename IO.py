@@ -22,7 +22,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Foobar.  If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
+# along with Zero Tasks.  If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
 #
 # name: IO.py
 # date: 2016NOV10

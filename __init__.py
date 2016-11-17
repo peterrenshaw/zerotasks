@@ -9,6 +9,21 @@
 #  / /__/  __/ /  / /_/ /    / / / /_/ (__  ) ,< (__  ) 
 # /____/\___/_/   \____/    /_/  \__,_/____/_/|_/____/  
 #
+# This file is part of Zero Tasks.
+#
+# Zero Tasks is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Zero Tasks is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Zero Tasks.  If not, see <http://www.gnu.org/licenses/gpl-3.0.txt>.
+#
 # name: __init__.py
 # date: 2016NOV12
 # prog: pr

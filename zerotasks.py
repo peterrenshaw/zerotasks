@@ -55,27 +55,27 @@ def main():
 
     if options.new:
         if not tools.new(options.new, options.comment, options.priority):
-            tools.DISERR("Cannot add new task")
+            tools.MSG("Warning","Cannot add new task. Maximum number of tasks entered.\nComplete a task, enter again.")
     
     if options.start:
         if not tools.update_start(options.start):
-            tools.DISERR("Cannot update start on task","#{}".format(options.start))
+            tools.MSG("Error", "Cannot update start on task #{}".format(options.start))
 
     if options.finish:
         if not tools.update_completed(options.finish):
-            tools.DISERR("Cannot update end of task and completion","#{}".format(options.start))
+            tools.MSG("Error", "Cannot update end of task and completion #{}".format(options.start))
 
     if options.rebuild:
         if not tools.rebuild():
-            tools.DISERR("Cannot rebuild tasks")
-
+            tools.MSG("Error", "Cannot rebuild tasks")
+            
     if options.display:
         if not tools.display_all():
-            tools.DISERR("Cannot display tasks")
-            print(config.APP_NAME)
+            tools.MSG("Error", "Cannot display tasks")
+            tools.MSG(config.APP_NAME)
 
     if not (options.new or options.start or options.finish or options.rebuild or options.display):
-        print(config.TITLE)
+        tools.MSG(config.TITLE)
         parser.print_help()
 
 

@@ -101,6 +101,7 @@ def new(name,
             fpn = os.path.join(config.FP_HOME, config.FP_TASKS, fp)
             DISCOM("tools.new","fp=<{}>\nfpn=<{}>".format(fp, fpn))
             if IO.write(fpn, task):
+                # rebuild to reflect latest changes in 'todo', 'done', 'tasks'
                 return rebuild()
             else:
                 DISERR("Cannot write new task","task {}\nfpn <{}>".format(task, fpn))
@@ -154,7 +155,7 @@ def update_task(number, key):
     if number:
          tasks = []
          fpn = IO.get_filepathname()
-         #DISCOM("tools.update_task","fpn={}".format(fpn))
+         DISCOM("tools.update_task","fpn={}".format(fpn))
          if fpn: tasks = sort_todo(IO.read_all(fpn))
          else: DISERR("Cannot read file content")
          
@@ -162,7 +163,6 @@ def update_task(number, key):
          DISCOM("tools.update_task", "count={}".format(count))
          DISCOM("tools.update_task", "tasks={}".format(tasks))
          for task in tasks:
-             #DISCOM("tools.update_task","task={} ({}) count={} number={}".format(task['name'], (count == int(number)), count, int(number)))
              if count == int(number):
                   DISCOM("tools.update_task", 
                          "{} {} {}/{} {}".format(task['start'], task['end'], task['completed'], count, number))
@@ -181,9 +181,9 @@ def update_task(number, key):
                   #print("num={} key={} task={}".format(number, key, task[key], task))
 
                   fpn = IO.get_path(task)
-                  #DISCOM("tools.update_task","fpn <{}>".format(fpn))
-                  #DISCOM("tools.update_task","key <{}>".format(key))
-                  #DISCOM("tools.update_task","task <{}>".format(task))
+                  DISCOM("tools.update_task","fpn <{}>".format(fpn))
+                  DISCOM("tools.update_task","key <{}>".format(key))
+                  DISCOM("tools.update_task","task <{}>".format(task))
                   if not IO.write(fpn, task):
                       DISERR("Cannot write task")
                       return False
@@ -367,28 +367,48 @@ def display_all():
             return True
     else:
         return False
+#------ display debug messages ------
 def disbug(title, message, priority, is_debug=config.DEBUG):
+    """display debug messages with DEBUG=True set"""
     if is_debug:
         if priority == 1:
             print("> ERR : {}".format(title))
         elif priority == 2:
             print("> WARN: {}".format(title))
-        else:
+        elif priority == 3:
             print("> COM: {}".format(title))
+        else: # no meta title
+            print(">    : {}".format(title))
+        return True
+
+        # display message if entered
         if message:
             print("> {}".format(message))
         return True
     else:
+        # show nothing
         return False
 def DISERR(title, message=""):
-    """display error message"""
+    """display debug error message"""
     return disbug(title, message, priority=1)
 def DISWARN(title, message=""):
-    """display warning message"""
+    """display debug warning message"""
     return disbug(title, message, priority=2)
 def DISCOM(title, message=""):
-    """display comment message"""
+    """display debug comment message"""
     return disbug(title, message, priority=3)
+#------ display user message ------
+def DISUSER(title, message=""):
+    """display direct user message, supply title, optional message"""
+    if title:
+        print("{}".format(title))
+        if message:
+            print("{}".format(message))
+    else:
+        return False
+def MSG(title, message=""):
+    """display direct user message"""
+    return disuser(title, message, priority=3)
 #------ display -------
 
 

@@ -20,10 +20,18 @@
 
           #1 SA1211 1 N ZT SORT BY PRIORITY
           #2 SA1211 3 N ZT ADD DONE EVEN IF EMPTY
+          #3 SA1211 2 N WRITEUP ZT BLOG POST
 
-          pr it's saturday 29 october @ 13:44:53
+          pr it's saturday 17 november @ 16:05:53
           logins       4
           pr:~ pr$ 
+
+          DONE
+
+          TH1711 1 Y BUG ENTER MAX TASKS NO WARN
+              should be an error/warning on entering greater than max tasks.
+          SA1211 1 Y ZT FIX TASKS
+              remove prettyprint from tasks, redo in done
 
 ABOUT
 

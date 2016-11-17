@@ -20,8 +20,8 @@
 #
 #     /HOME/REL_PATH/APP_DIR
 #
-HOME = "/path/to/user"
-REL_PATH = "relative/path"
+HOME = "/Users/pr"     #"/path/to/user"
+REL_PATH = "work/code" #"relative/path"
 APP_DIR = "zerotasks"
 #
 #------

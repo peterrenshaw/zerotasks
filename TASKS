@@ -1,5 +1,5 @@
 {"completed": true,"created": 1479359268.0,"description": "should also update code headers with license type","end": 1479360441.0,"name": "zt add LICENSE file","priority": "1","start": 1479359294.0}
-{"completed": false,"created": 1479361151.0,"description": "if invalid paths are added to machine, a bad path should be captured at runtime","end": 0.0,"name": "bug invalid machine.HOME, REL_PATH can fail","priority": "1","start": 1479361160.0}
+{"completed": true,"created": 1479361151.0,"description": "if invalid paths are added to machine, a bad path should be captured at runtime","end": 1479363799.0,"name": "bug invalid machine.HOME, REL_PATH can fail","priority": "1","start": 1479361160.0}
 {"completed": true,"created": 1479356993.0,"description": "Should be an error/warning on entering greater than max tasks.","end": 1479358872.0,"name": "bug enter max tasks no warn","priority": "1","start": 1479358848.0}
 {"completed": false,"created": 1478940261.0,"description": "at present no sort of priorities / sort by priority","end": 0.0,"name": "zt sort by priority","priority": "1","start": 0.0}
 {"completed": true,"created": 1478946900.0,"description": "remove prettyprint from TASKS, redo in DONE","end": 1478947520.0,"name": "zt fix TASKS","priority": "1","start": 1478947517.0}

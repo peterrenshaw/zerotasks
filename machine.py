@@ -40,7 +40,6 @@ HOME = "/path/to/user"
 REL_PATH = "relative/path"
 APP_DIR = "zerotasks"
 
-
 #------
 
 def main():

@@ -1,0 +1,1 @@
+{"completed": true,"created": 1479361151.0,"description": "if invalid paths are added to machine, a bad path should be captured at runtime","end": 1479363799.0,"name": "bug invalid machine.HOME, REL_PATH can fail","priority": "1","start": 1479361160.0}

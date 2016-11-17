@@ -1,3 +1,5 @@
+TH1711 1 Y ZT ADD LICENSE FILE
+           should also update code headers with license type
 TH1711 1 Y BUG ENTER MAX TASKS NO WARN
            should be an error/warning on entering greater than max tasks.
 SA1211 1 Y ZT FIX TASKS

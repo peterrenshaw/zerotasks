@@ -32,6 +32,7 @@
 
 
 import os
+import sys
 import machine
 
 
@@ -53,6 +54,7 @@ FP_REL_PATH = machine.REL_PATH
 
 FN_EXT = "tsk"
 FP_TASKS = os.path.join(FP_HOME, FP_REL_PATH, APP_DIR)
+
 TASKS_ARCHIVE = os.path.join(FP_TASKS, "2016")
 TASK_ATTRIBUTES = dict(name="",            # name of task
                        description="",     # task comment (optional)
@@ -81,8 +83,6 @@ TITLE = """
 
 def main():
     """main entry point for cli"""
-    pass
-
 
 # main entry point for cli
 if __name__  == "__main__":

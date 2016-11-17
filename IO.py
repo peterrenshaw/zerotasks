@@ -199,7 +199,6 @@ def get_path(task, basepath=config.FP_TASKS):
         ymd  = Path().get(epoch)
         fn = Filename().getlo(name)
         fpn = os.path.join(fp, ymd, fn)
-
         tools.DISCOM("fn = {}".format(fn))
         tools.DISCOM("ymd = {}".format(ymd))
         tools.DISCOM("fp = {}".format(fp))

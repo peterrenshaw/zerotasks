@@ -17,6 +17,7 @@
 
 
 import os
+import sys
 import argparse
 
 
@@ -53,29 +54,37 @@ def main():
     options = parser.parse_args()
 
 
-    if options.new:
-        if not tools.new(options.new, options.comment, options.priority):
-            tools.MSG("Warning","Cannot add new task. Maximum number of tasks entered.\nComplete a task, enter again.")
+    # if config setup for filepaths bad, 
+    # nothing happens
+    if tools.is_filepath_setup_ok():
+
+        if options.new:
+            if not tools.new(options.new, options.comment, options.priority):
+                tools.MSG("Warning","Cannot add new task. Maximum number of tasks entered.\nComplete a task, enter again.")
     
-    if options.start:
-        if not tools.update_start(options.start):
-            tools.MSG("Error", "Cannot update start on task #{}".format(options.start))
+        if options.start:
+            if not tools.update_start(options.start):
+                tools.MSG("Error", "Cannot update start on task #{}".format(options.start))
 
-    if options.finish:
-        if not tools.update_completed(options.finish):
-            tools.MSG("Error", "Cannot update end of task and completion #{}".format(options.start))
+        if options.finish:
+            if not tools.update_completed(options.finish):
+                tools.MSG("Error", "Cannot update end of task and completion #{}".format(options.start))
 
-    if options.rebuild:
-        if not tools.rebuild():
-            tools.MSG("Error", "Cannot rebuild tasks")
+        if options.rebuild:
+            if not tools.rebuild():
+                tools.MSG("Error", "Cannot rebuild tasks")
             
-    if options.display:
-        if not tools.display_all():
-            tools.MSG(config.APP_NAME)
+        if options.display:
+            if not tools.display_all():
+               tools.MSG(config.APP_NAME)
 
-    if not (options.new or options.start or options.finish or options.rebuild or options.display):
-        tools.MSG(config.TITLE)
-        parser.print_help()
+        if not (options.new or options.start or options.finish or options.rebuild or options.display):
+            tools.MSG(config.TITLE)
+            parser.print_help()
+
+    else:
+        sys.exit(1)
+
 
 
 # main entry point for cli

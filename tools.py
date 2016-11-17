@@ -296,6 +296,29 @@ def rebuild():
 
 #------ sort -------
 
+#------ paths ------
+def is_filepath_setup_ok():
+    """test if filepaths from config and machine setup is valid"""
+    # test for correct filepaths from ^machine.py^ are ok 
+    is_fp_valid = os.path.isdir(config.FP_TASKS)
+    if not is_fp_valid:
+        border = "*" * 30
+        MSG("{}".format(border))
+        MSG("* ERROR: Major ^{}^ problem".format(config.APP_NAME))
+        MSG("* Filepath info from zerotasks.machine.py failed")
+        MSG("* Invalid file paths in machine.py settings.")
+        MSG("* The filepath is <{}> is {}".format(config.FP_TASKS, is_fp_valid))
+        MSG("* Please fix the following files")
+        MSG("* \tmachine.HOME=<{}>".format(config.FP_HOME))
+        MSG("* \tmachine.REL_PATH=<{}>".format(config.FP_REL_PATH))
+        MSG("* \tmachine.APP_DIR=<{}>".format(config.APP_DIR))
+        MSG("{}".format(border))
+
+       
+        return False
+    else:
+        return True
+#------ paths ------
 
 #------ display -------
 def display(data, 

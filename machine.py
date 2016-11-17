@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # ~*~ encoding: utf-8 ~*~
 
 
@@ -38,7 +39,8 @@
 HOME = "/path/to/user"
 REL_PATH = "relative/path"
 APP_DIR = "zerotasks"
-#
+
+
 #------
 
 def main():

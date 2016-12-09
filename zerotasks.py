@@ -40,7 +40,7 @@ import tools
 import config
 
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __author__ = 'Peter Renshaw'
 __license__ = 'GNU GPL 3.0'
 __email__ = 'peterenshaw@seldomlogical.com'

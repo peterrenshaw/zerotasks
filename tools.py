@@ -358,6 +358,11 @@ def display(data,
                 comment = ""
             priority = task['priority']
 
+            if task['completed']:
+                completed = "Y"
+            else:
+                completed = "N"
+
             # build line
             if show_count:
                 line = "#{} {} {} {}".format(count, dt, priority, name)

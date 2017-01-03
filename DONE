@@ -1,3 +1,7 @@
+WE0401 1 Y ZT FIX YYYY BUG
+           new year, new bug. caused by use of yyyy to store data. fix by placing data into base directory and storing yyyy in it allowing for multiple years
+WE0401 1 Y ZT FIX NEW TASK
+           new tasks are written to a dir with yyyy. make change to allow  new task written to tasks_archive/yyyy
 TH1711 1 Y ZT ADD LICENSE FILE
            should also update code headers with license type
 TH1711 1 Y BUG INVALID MACHINE.HOME, REL_PATH CAN FAIL

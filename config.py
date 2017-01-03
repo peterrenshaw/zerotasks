@@ -34,6 +34,7 @@
 import os
 import sys
 import machine
+#import datetime
 
 
 #------- config -------
@@ -55,7 +56,10 @@ FP_REL_PATH = machine.REL_PATH
 FN_EXT = "tsk"
 FP_TASKS = os.path.join(FP_HOME, FP_REL_PATH, APP_DIR)
 
-TASKS_ARCHIVE = os.path.join(FP_TASKS, "2016")
+
+FP_TASKS_DATA_PATH = "ztdata"
+TASKS_ARCHIVE = os.path.join(FP_TASKS, FP_TASKS_DATA_PATH)
+
 TASK_ATTRIBUTES = dict(name="",            # name of task
                        description="",     # task comment (optional)
                        priority=0,         # priority of task given (1-3)

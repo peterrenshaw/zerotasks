@@ -1,3 +1,5 @@
+{"completed": true,"created": 1483482718.0,"description": "new year, new bug. caused by use of YYYY to store data. Fix by placing data into base directory and storing YYYY in it allowing for multiple years","end": 1483483167.0,"name": "zt fix yyyy bug","priority": "1","start": 1483483151.0}
+{"completed": true,"created": 1483483241.0,"description": "new tasks are written to a dir with YYYY. Make change to allow  new task written to TASKS_ARCHIVE/YYYY","end": 1483483258.0,"name": "zt fix new task","priority": "1","start": 1483483255.0}
 {"completed": false,"created": 1479370855.0,"description": "sort is LIFO, create real sort by key","end": 0.0,"name": "zt feature fix sort","priority": "2","start": 0.0}
 {"completed": true,"created": 1479359268.0,"description": "should also update code headers with license type","end": 1479360441.0,"name": "zt add LICENSE file","priority": "1","start": 1479359294.0}
 {"completed": true,"created": 1479361151.0,"description": "if invalid paths are added to machine, a bad path should be captured at runtime","end": 1479363799.0,"name": "bug invalid machine.HOME, REL_PATH can fail","priority": "1","start": 1479361160.0}

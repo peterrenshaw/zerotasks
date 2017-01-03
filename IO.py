@@ -189,7 +189,7 @@ class Filepath(object):
 
 
 #------ IO -------
-def get_path(task, basepath=config.FP_TASKS):
+def get_path(task, basepath=config.TASKS_ARCHIVE):
     """build filepath from task data"""
     if 'name' in task: 
         name = task['name']
@@ -297,25 +297,49 @@ def get_filepathname(filepath=config.TASKS_ARCHIVE, ext=config.FN_EXT):
     tools.DISCOM("IO.get_filepathname","fp=<{}>".format(fp))
     tools.DISCOM("IO.get_filepathname","filepaths=<{}>".format(filepaths))
 
-    # extact filepaths by glob
+
+    #-------
+    # explanation:
+    #
+    # the code below looks into the TASKS_ARCHIVE directory
+    # and looks for multiple YYYY/ directories for child months
+    # and days, slurping up all the files with the FN_EXT extension
+    # stored as a list of filenamepaths.
+    # 
+    #     TASKS_ARCHIVE/
+    #         2016/
+    #             DEC/
+    #                 09/
+    #                     zt-fix-forth-field.tsk
+    #         YYYY/
+    #             MMM/
+    #                 NN/
+    #                     zt-filename.FN_EXT
+    #-------
+
+    # extract filepaths by glob
     for dirs in filepaths:
-        d = "{}/*".format(dirs)
-        for fp in glob.glob(d):
-            if ext:
-                # only grab files with extension
-                fn = "{}/*.{}".format(fp, ext)
-            else:
-                # no extension/junk data
-                fn = "{}/*".format(fp)
+        # TASKS_ARCHIVE dir
+        directories = "{}/*".format(dirs)
+        # YYYY dirs
+        for d in glob.glob(directories):
+            # filenames
+            for fp in glob.glob("{}/*".format(d)):
+                if ext:
+                    # only grab files with extension
+                    fn = "{}/*.{}".format(fp, ext)
+                else:
+                    # no extension/junk data
+                    fn = "{}/*".format(fp)
 
-            tools.DISCOM("IO.get_filepathname","fn=<{}>".format(fn))
+                tools.DISCOM("IO.get_filepathname","fn=<{}>".format(fn))
 
-            # extract filenames
-            fpn = os.path.join(fp, fn)
-            for tfn in glob.glob(fpn):
-                 if os.path.isfile(tfn):
-                     #paths.append(tfn)
-                     paths.insert(0, tfn)
+                # extract filenames
+                fpn = os.path.join(fp, fn)
+                tools.DISCOM("IO.get_filepathname","fpn=<{}>".format(fpn))
+                for tfn in glob.glob(fpn):
+                    if os.path.isfile(tfn):
+                        paths.insert(0, tfn)
 
     tools.DISCOM("IO.get_filepathname","paths=<{}>".format(paths))
     return paths

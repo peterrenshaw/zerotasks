@@ -113,7 +113,7 @@ def new(name,
         task = new_task(name, comment, priority)
         if task:
             fp = IO.get_path(task)
-            fpn = os.path.join(config.FP_HOME, config.FP_TASKS, fp)
+            fpn = os.path.join(config.TASKS_ARCHIVE, fp)
             DISCOM("tools.new","fp=<{}>\nfpn=<{}>".format(fp, fpn))
             if IO.write(fpn, task):
                 # rebuild to reflect latest changes in 'todo', 'done', 'tasks'
